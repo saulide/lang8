@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module rename-to='lang8'>
+  <inherits name='com.google.gwt.user.User'/>
+  <inherits name='com.google.gwt.user.theme.standard.Standard'/>
+  <inherits name='com.google.gwt.inject.Inject' />
+  <inherits name='org.enunes.gwt.mvp.Mvp' />
+  
+  <entry-point class='com.tangledcode.lang8.client.Application'/>
+
+  <source path='client'/>
+  <source path='shared'/>
+
+</module>

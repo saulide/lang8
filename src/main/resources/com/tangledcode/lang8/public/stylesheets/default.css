@@ -1,0 +1,78 @@
+.header {
+	background: #333;
+    color: #eee;
+}
+
+.header h1 {
+	float: left;
+    font-size: 16px;
+    line-height: 30px;
+    margin: 0px 20px;
+}
+
+.menu {
+  	float: left;
+  	line-height: 30px;
+}
+
+.menu .gwt-Button {
+  	float: left;
+  	padding: 0px 10px;
+  	cursor: pointer;
+}
+
+.menu .gwt-Button:hover {
+}
+
+.menu .gwt-Button.active {
+	background: #444;
+}
+
+.menu .gwt-Button.active:hover {
+}
+
+.container .content {
+	margin-top: 15px;
+	padding: 20px 20px 20px 20px;
+	background: #f7f7f7;
+}
+.container .content h2 {
+	padding: 15px 20px 0px 20px;
+	font-size: 14px;
+	color: #444;
+}
+.container .content .gwt-Label {
+	font-weight: bold;
+	display: display;
+	text-align: right;
+    padding-right: 15px;
+    float: left;
+    width: 100px;
+}
+.container .content .gwt-TextBox,
+.container .content .gwt-PasswordTextBox {
+	font-size: 13px;
+	padding: 3px;
+	width: 250px;
+	border: 1px solid #ddd;
+	outline: none;
+}
+
+.container .content .actions {
+  padding: 20px 20px 0px 20px;
+}
+
+.container .content .actions .gwt-Button {
+	float: left;
+	cursor: pointer;
+	background: #eee;
+	border: 1px solid #ddd;
+	padding: 3px 5px;
+	margin-right: 5px;
+	\-webkit-border-radius: 3px;
+}
+
+.container .content .actions .gwt-Button:hover {
+	background-color: #ddd;
+	border-color: #ccc;
+}
