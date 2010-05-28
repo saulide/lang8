@@ -13,11 +13,11 @@
 		</p>
 		<p>
 			<g:Label text="Password:" />
-			<g:TextBox ui:field="passwordTextBox" />
+			<g:PasswordTextBox ui:field="passwordTextBox" />
 		</p>
 		<p>
 			<g:Label text="Password: (Confirmation)" />
-			<g:TextBox ui:field="passwordConfirmationTextBox" />
+			<g:PasswordTextBox ui:field="passwordConfirmationTextBox" />
 		</p>
 		<p class="actions">
 			<g:Button ui:field="resetButton" text="Reset" />

@@ -4,6 +4,7 @@ import org.enunes.gwt.mvp.client.EventBus;
 import org.enunes.gwt.mvp.client.presenter.BasePresenter;
 
 import com.google.inject.Inject;
+import com.tangledcode.lang8.client.model.User;
 import com.tangledcode.lang8.client.presenter.ProfilePresenter.Display;
 
 
@@ -16,9 +17,11 @@ public class ProfilePresenterImp extends BasePresenter<Display> implements Profi
 
     public void bind() {
         super.bind();
-        
-        this.display.setUsername("Peter Frosta");
-        this.display.setEmail("peter.frosta@gmail.com");
+    }
+
+    public void setUser(User user) {
+        this.display.setUsername(user.getUsername());
+        this.display.setEmail(user.getEmail());
     }
 
 }

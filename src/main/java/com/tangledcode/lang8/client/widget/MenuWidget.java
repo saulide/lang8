@@ -26,8 +26,6 @@ public class MenuWidget extends Composite implements Display {
 
     public MenuWidget() {
         initWidget(uiBinder.createAndBindUi(this));
-        
-        this.registrationButton.setVisible(false);
     }
 
     public Widget asWidget() {

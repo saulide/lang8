@@ -8,6 +8,7 @@ import com.google.gwt.uibinder.client.UiTemplate;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HasText;
+import com.google.gwt.user.client.ui.PasswordTextBox;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Widget;
 import com.tangledcode.lang8.client.presenter.RegistrationPresenter.Display;
@@ -23,8 +24,8 @@ public class RegistrationWidget extends Composite implements Display {
     
     @UiField TextBox usernameTextBox;
     @UiField TextBox emailTextBox;
-    @UiField TextBox passwordTextBox;
-    @UiField TextBox passwordConfirmationTextBox;
+    @UiField PasswordTextBox passwordTextBox;
+    @UiField PasswordTextBox passwordConfirmationTextBox;
     @UiField Button resetButton;
     @UiField Button registrationButton;
 

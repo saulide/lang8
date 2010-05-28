@@ -125,6 +125,22 @@ public class MainPresenterImp extends BasePresenter<Display> implements MainPres
     protected void doProfileClick() {
         final ProfilePresenter presenter = this.profileProvider.get();
         this.switchPresenter(presenter);
+        
+        if(this.userSvc == null) {
+            this.userSvc = GWT.create(UserLoginService.class);
+        }
+        
+        final AsyncCallback<User> callback = new AsyncCallback<User>() {
+            
+            public void onSuccess(User user) {
+                presenter.setUser(user);
+            }
+            
+            public void onFailure(Throwable caught) {
+            }
+        };
+        
+        this.userSvc.getUser(1L, callback);
     }
 
     protected void doLoginClick() {
@@ -180,5 +196,5 @@ public class MainPresenterImp extends BasePresenter<Display> implements MainPres
     protected void doResetRegistration() {
         
     }
-
+    
 }

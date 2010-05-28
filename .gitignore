@@ -6,3 +6,4 @@ target/*
 war/WEB-INF/classes/*
 war/lang8
 *.jar
+*.class
