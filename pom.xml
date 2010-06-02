@@ -75,6 +75,13 @@
 			<type>jar</type>
 		</dependency>
 		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-annotations</artifactId>
+			<version>3.4.0.GA</version>
+			<type>jar</type>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-simple</artifactId>
 			<version>1.6.0</version>
@@ -83,7 +90,7 @@
 		<dependency>
 			<groupId>postgresql</groupId>
 			<artifactId>postgresql</artifactId>
-			<version>8.4-701.jdbc4</version>
+			<version>8.4-701.jdbc3</version>
 			<type>jar</type>
 		</dependency>
 		<dependency>
@@ -98,6 +105,12 @@
 			<version>1.0.1B</version>
 			<scope>compile</scope>
 		</dependency>
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>1.2.16</version>
+			<scope>provided</scope>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -109,9 +122,12 @@
 				<directory>${basedir}/src/main/resources</directory>
 				<includes>
 					<include>**/*.html</include>
-					<include>**/*.gwt.xml</include>
 					<include>**/*.css</include>
 					<include>**/*.png</include>
+					<include>**/*.gwt.xml</include>
+					<include>**/*.cfg.xml</include>
+					<include>**/*.hbm.xml</include>
+					<include>**/*.properties</include>
 				</includes>
 			</resource>
 		</resources>

@@ -11,7 +11,7 @@
 		<property name="connection.pool">1</property>
 		
 		<property name="dialect">org.hibernate.dialect.PostgreSQLDialect</property>
-		<property name="current_session_context_class">thread</property>
+		<property name="current_session_context_class">org.hibernate.context.ThreadLocalSessionContext</property>
 		<property name="cache.provider_class">org.hibernate.cache.NoCacheProvider</property>
 		<property name="show_sql">true</property>
 		<property name="hbm2ddl.auto">update</property>

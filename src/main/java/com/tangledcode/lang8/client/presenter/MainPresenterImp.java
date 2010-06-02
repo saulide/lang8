@@ -9,6 +9,7 @@ import com.google.gwt.user.client.Cookies;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
+import com.tangledcode.lang8.client.dto.UserDTO;
 import com.tangledcode.lang8.client.event.LoginClickEvent;
 import com.tangledcode.lang8.client.event.LoginClickHandler;
 import com.tangledcode.lang8.client.event.RegistrationClickEvent;
@@ -21,8 +22,8 @@ import com.tangledcode.lang8.client.event.UserRegistrationEvent;
 import com.tangledcode.lang8.client.event.UserRegistrationHandler;
 import com.tangledcode.lang8.client.model.User;
 import com.tangledcode.lang8.client.presenter.MainPresenter.Display;
-import com.tangledcode.lang8.client.service.UserLoginService;
-import com.tangledcode.lang8.client.service.UserLoginServiceAsync;
+import com.tangledcode.lang8.client.service.UserService;
+import com.tangledcode.lang8.client.service.UserServiceAsync;
 
 public class MainPresenterImp extends BasePresenter<Display> implements MainPresenter {
 
@@ -30,7 +31,7 @@ public class MainPresenterImp extends BasePresenter<Display> implements MainPres
     private final Provider<LoginPresenter> loginProvider;
     private final Provider<ProfilePresenter> profileProvider;
     
-    private UserLoginServiceAsync userSvc = GWT.create(UserLoginService.class);
+    private UserServiceAsync userSvc = GWT.create(UserService.class);
     
     private Presenter<? extends org.enunes.gwt.mvp.client.view.Display> presenter;
 
@@ -127,20 +128,20 @@ public class MainPresenterImp extends BasePresenter<Display> implements MainPres
         this.switchPresenter(presenter);
         
         if(this.userSvc == null) {
-            this.userSvc = GWT.create(UserLoginService.class);
+            this.userSvc = GWT.create(UserService.class);
         }
         
-        final AsyncCallback<User> callback = new AsyncCallback<User>() {
+        final AsyncCallback<UserDTO> callback = new AsyncCallback<UserDTO>() {
             
-            public void onSuccess(User user) {
-                presenter.setUser(user);
+            public void onSuccess(UserDTO user) {
+                presenter.setUser(new User(user));
             }
             
             public void onFailure(Throwable caught) {
             }
         };
         
-        this.userSvc.getUser(1L, callback);
+        this.userSvc.getUser(new Long(1), callback);
     }
 
     protected void doLoginClick() {
@@ -155,7 +156,7 @@ public class MainPresenterImp extends BasePresenter<Display> implements MainPres
 
     protected void doUserLogin(User user) {
         if(this.userSvc == null) {
-            this.userSvc = GWT.create(UserLoginService.class);
+            this.userSvc = GWT.create(UserService.class);
         }
         
         AsyncCallback<String> callback = new AsyncCallback<String>() {
@@ -176,7 +177,7 @@ public class MainPresenterImp extends BasePresenter<Display> implements MainPres
 
     protected void doUserRegistration(User user) {
         if(this.userSvc == null) {
-            this.userSvc = GWT.create(UserLoginService.class);
+            this.userSvc = GWT.create(UserService.class);
         }
         
         AsyncCallback<Long> callback = new AsyncCallback<Long>() {
@@ -190,7 +191,7 @@ public class MainPresenterImp extends BasePresenter<Display> implements MainPres
             }
         };
         
-        this.userSvc.saveUser(user, callback);
+        this.userSvc.saveUser(new UserDTO(user), callback);
     }
 
     protected void doResetRegistration() {

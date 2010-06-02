@@ -9,7 +9,7 @@ public class HibernateUtil {
 
     private static SessionFactory buildSessionFactory() {
         try {
-            return new Configuration().configure("com/tangledcode/lang8/config/hibernate.cfg.xml").buildSessionFactory();
+            return new Configuration().configure().buildSessionFactory();
         } catch(Throwable ex) {
             System.err.println("initial session factory creation failed: " + ex);
             throw new ExceptionInInitializerError(ex);
