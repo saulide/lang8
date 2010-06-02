@@ -14,6 +14,6 @@ public interface MainPresenter extends Presenter<MainPresenter.Display> {
 
         void removeContent();
         
-    }
+    }  
     
 }

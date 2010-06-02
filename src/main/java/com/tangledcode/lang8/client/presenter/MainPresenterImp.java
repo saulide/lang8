@@ -16,6 +16,8 @@ import com.tangledcode.lang8.client.event.RegistrationClickEvent;
 import com.tangledcode.lang8.client.event.RegistrationClickHandler;
 import com.tangledcode.lang8.client.event.ResetRegistrationEvent;
 import com.tangledcode.lang8.client.event.ResetRegistrationHandler;
+import com.tangledcode.lang8.client.event.TextClickEvent;
+import com.tangledcode.lang8.client.event.TextClickHandler;
 import com.tangledcode.lang8.client.event.UserLoginEvent;
 import com.tangledcode.lang8.client.event.UserLoginHandler;
 import com.tangledcode.lang8.client.event.UserRegistrationEvent;
@@ -30,21 +32,25 @@ public class MainPresenterImp extends BasePresenter<Display> implements MainPres
     private final Provider<RegistrationPresenter> registrationProvider;
     private final Provider<LoginPresenter> loginProvider;
     private final Provider<ProfilePresenter> profileProvider;
+    private final Provider<TextPresenter> textProvider;
     
     private UserServiceAsync userSvc = GWT.create(UserService.class);
     
     private Presenter<? extends org.enunes.gwt.mvp.client.view.Display> presenter;
+	
 
     @Inject
     public MainPresenterImp(EventBus eventBus, Display display, MenuPresenter menuPresenter, 
             Provider<RegistrationPresenter> registrationProvider,
             Provider<LoginPresenter> loginProvider,
-            Provider<ProfilePresenter> profileProvider) {
+            Provider<ProfilePresenter> profileProvider,
+            Provider<TextPresenter> textProvider) {
         super(eventBus, display);
 
         this.registrationProvider = registrationProvider;
         this.loginProvider = loginProvider;
         this.profileProvider = profileProvider;
+        this.textProvider = textProvider;
 
         menuPresenter.bind();
         this.display.addMenu(menuPresenter.getDisplay());
@@ -71,7 +77,7 @@ public class MainPresenterImp extends BasePresenter<Display> implements MainPres
             this.presenter.unbind();
         }
     }
-
+ 
     @Override
     public void bind() {
         super.bind();
@@ -120,9 +126,23 @@ public class MainPresenterImp extends BasePresenter<Display> implements MainPres
             }
         }));
         
+        this.registerHandler(this.eventBus.addHandler(TextClickEvent.getType(), new TextClickHandler() {
+        	public void onTextClick(TextClickEvent event){
+        		doTextClick();
+        	}
+        }
+        
+        ));
+        		
+        
         eventBus.fireEvent(new LoginClickEvent());
     }
-
+    
+	protected void doTextClick() {
+		final TextPresenter presenter = this.textProvider.get();
+		this.switchPresenter(presenter);
+		
+	}
     protected void doProfileClick() {
         final ProfilePresenter presenter = this.profileProvider.get();
         this.switchPresenter(presenter);

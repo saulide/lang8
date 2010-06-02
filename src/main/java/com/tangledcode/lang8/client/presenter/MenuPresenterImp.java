@@ -8,6 +8,7 @@ import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.inject.Inject;
 import com.tangledcode.lang8.client.event.LoginClickEvent;
 import com.tangledcode.lang8.client.event.RegistrationClickEvent;
+import com.tangledcode.lang8.client.event.TextClickEvent;
 import com.tangledcode.lang8.client.presenter.MenuPresenter.Display;
 
 public class MenuPresenterImp extends BasePresenter<Display> implements MenuPresenter {
@@ -41,5 +42,12 @@ public class MenuPresenterImp extends BasePresenter<Display> implements MenuPres
                 eventBus.fireEvent(new ProfileClickEvent());
             }
         });
+        this.display.getTextClickHandlers().addClickHandler(new ClickHandler() {
+			
+			public void onClick(ClickEvent event) {
+				eventBus.fireEvent(new TextClickEvent());
+				
+			}
+		});
     }
 }
