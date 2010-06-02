@@ -11,11 +11,14 @@ import com.tangledcode.lang8.client.presenter.ProfilePresenter;
 import com.tangledcode.lang8.client.presenter.ProfilePresenterImp;
 import com.tangledcode.lang8.client.presenter.RegistrationPresenter;
 import com.tangledcode.lang8.client.presenter.RegistrationPresenterImp;
+import com.tangledcode.lang8.client.presenter.TextPresenter;
+import com.tangledcode.lang8.client.presenter.TextPresenterImp;
 import com.tangledcode.lang8.client.widget.LoginWidget;
 import com.tangledcode.lang8.client.widget.MainWidget;
 import com.tangledcode.lang8.client.widget.MenuWidget;
 import com.tangledcode.lang8.client.widget.ProfileWidget;
 import com.tangledcode.lang8.client.widget.RegistrationWidget;
+import com.tangledcode.lang8.client.widget.TextWidget;
 
 public class Module extends AbstractGinModule {
 
@@ -24,6 +27,10 @@ public class Module extends AbstractGinModule {
         install(new org.enunes.gwt.mvp.client.gin.Module());
 
         // mvp
+        
+        bind(TextPresenter.class).to(TextPresenterImp.class);
+        bind(TextPresenter.Display.class).to(TextWidget.class);
+        
         bind(MainPresenter.class).to(MainPresenterImp.class);
         bind(MainPresenter.Display.class).to(MainWidget.class);
         
@@ -38,6 +45,8 @@ public class Module extends AbstractGinModule {
         
         bind(ProfilePresenter.class).to(ProfilePresenterImp.class);
         bind(ProfilePresenter.Display.class).to(ProfileWidget.class);
+        
+
     }    
 
 }
