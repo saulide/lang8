@@ -5,6 +5,7 @@
 target/*
 war/WEB-INF/classes/*
 war/lang8
+war/application
 *.jar
 *.class
 *.log*
