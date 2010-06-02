@@ -5,5 +5,5 @@ import com.google.gwt.event.shared.EventHandler;
 public interface TextClickHandler extends EventHandler {
 	
 	void onTextClick(TextClickEvent event);
-
+ 
 }

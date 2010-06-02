@@ -18,7 +18,7 @@ public class TextClickEvent extends GwtEvent<TextClickHandler> {
 		// TODO Auto-generated method stub
 		
 	}
-
+  
 	@Override
 	public com.google.gwt.event.shared.GwtEvent.Type<TextClickHandler> getAssociatedType() {
 		// TODO Auto-generated method stub

@@ -18,7 +18,7 @@ public class TextPresenterImp extends BasePresenter<Display> implements TextPres
 		super.bind();
 		
 	}
-
-
+ 
+ 
 
 }

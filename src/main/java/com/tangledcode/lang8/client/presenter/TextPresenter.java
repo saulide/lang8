@@ -10,5 +10,5 @@ public interface TextPresenter extends Presenter<TextPresenter.Display>{
 			
 		//HasText getUsernameText();
 	}
-
+ 
 }

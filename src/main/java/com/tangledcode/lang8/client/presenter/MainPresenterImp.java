@@ -76,7 +76,7 @@ public class MainPresenterImp extends BasePresenter<Display> implements MainPres
             this.presenter.unbind();
         }
     }
-
+ 
     @Override
     public void bind() {
         super.bind();

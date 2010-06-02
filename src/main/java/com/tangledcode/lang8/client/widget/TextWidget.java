@@ -35,4 +35,4 @@ public class TextWidget extends Composite implements Display{
 		return this;
 	}
 
-}
+} 

@@ -27,7 +27,7 @@ public class Module extends AbstractGinModule {
         install(new org.enunes.gwt.mvp.client.gin.Module());
 
         // mvp
-        
+         
         bind(TextPresenter.class).to(TextPresenterImp.class);
         bind(TextPresenter.Display.class).to(TextWidget.class);
         
