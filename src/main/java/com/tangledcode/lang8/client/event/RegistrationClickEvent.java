@@ -21,7 +21,7 @@ public class RegistrationClickEvent extends GwtEvent<RegistrationClickHandler> {
     }
 
     @Override
-    public com.google.gwt.event.shared.GwtEvent.Type<RegistrationClickHandler> getAssociatedType() {
+    public Type<RegistrationClickHandler> getAssociatedType() {
         return getType();
     }
 

@@ -21,7 +21,7 @@ public class TextClickEvent extends GwtEvent<TextClickHandler> {
     }
 
     @Override
-    public com.google.gwt.event.shared.GwtEvent.Type<TextClickHandler> getAssociatedType() {
+    public Type<TextClickHandler> getAssociatedType() {
         return getType();
     }
 

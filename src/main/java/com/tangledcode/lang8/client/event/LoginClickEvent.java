@@ -21,7 +21,7 @@ public class LoginClickEvent extends GwtEvent<LoginClickHandler> {
     }
 
     @Override
-    public com.google.gwt.event.shared.GwtEvent.Type<LoginClickHandler> getAssociatedType() {
+    public Type<LoginClickHandler> getAssociatedType() {
         return getType();
     }
 

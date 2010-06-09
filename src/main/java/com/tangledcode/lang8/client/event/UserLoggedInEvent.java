@@ -17,12 +17,13 @@ public class UserLoggedInEvent extends GwtEvent<UserLoggedInHandler> {
 
     @Override
     protected void dispatch(UserLoggedInHandler handler) {
+        System.out.println(">>> handling UserloggedInEvent");
         handler.onUserLoggedIn(this);
     }
 
     @Override
-    public com.google.gwt.event.shared.GwtEvent.Type<UserLoggedInHandler> getAssociatedType() {
-        return null;
+    public Type<UserLoggedInHandler> getAssociatedType() {
+        return getType();
     }
 
 }

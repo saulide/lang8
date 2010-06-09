@@ -12,11 +12,10 @@ public class UserDTO implements Serializable {
     private String email;
     private String password;
     
-    
     public UserDTO() {
     }
     
-    public UserDTO(long id, String username, String email, String password) {
+    public UserDTO(long id, String username, String email, String password, String sessionId) {
         this.id = id;
         this.username = username;
         this.email = email;
@@ -24,7 +23,7 @@ public class UserDTO implements Serializable {
     }
     
     public UserDTO(User user) {
-        this(user.getId(), user.getUsername(), user.getEmail(), user.getPassword());
+        this(user.getId(), user.getUsername(), user.getEmail(), user.getPassword(), null);
     }
     
     /*
