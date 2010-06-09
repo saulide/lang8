@@ -108,7 +108,6 @@ public class MainPresenterImp extends BasePresenter<Display> implements MainPres
         this.registerHandler(this.eventBus.addHandler(UserLoggedInEvent.getType(), new UserLoggedInHandler() {
             
             public void onUserLoggedIn(UserLoggedInEvent event) {
-                System.out.println("registerHandler => UserLoggedInEvent");
                 doUserLoggedIn();
             }
         }));
@@ -149,7 +148,6 @@ public class MainPresenterImp extends BasePresenter<Display> implements MainPres
     }
 
     protected void doUserLoggedIn() {
-        System.out.println("doUserLoggedIn");
         eventBus.fireEvent(new ProfileClickEvent(CurrentUser.getUser().getId()));
     }
 

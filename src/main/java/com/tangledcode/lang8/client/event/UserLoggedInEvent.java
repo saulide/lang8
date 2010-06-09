@@ -17,7 +17,6 @@ public class UserLoggedInEvent extends GwtEvent<UserLoggedInHandler> {
 
     @Override
     protected void dispatch(UserLoggedInHandler handler) {
-        System.out.println(">>> handling UserloggedInEvent");
         handler.onUserLoggedIn(this);
     }
 
