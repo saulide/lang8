@@ -33,17 +33,16 @@ public class MainPresenterImp extends BasePresenter<Display> implements MainPres
     private final Provider<LoginPresenter> loginProvider;
     private final Provider<ProfilePresenter> profileProvider;
     private final Provider<TextPresenter> textProvider;
-    
+
     private UserServiceAsync userSvc = GWT.create(UserService.class);
-    
+
     private Presenter<? extends org.enunes.gwt.mvp.client.view.Display> presenter;
-	
 
     @Inject
     public MainPresenterImp(EventBus eventBus, Display display, MenuPresenter menuPresenter, 
-            Provider<RegistrationPresenter> registrationProvider,
-            Provider<LoginPresenter> loginProvider,
-            Provider<ProfilePresenter> profileProvider,
+            Provider<RegistrationPresenter> registrationProvider, 
+            Provider<LoginPresenter> loginProvider, 
+            Provider<ProfilePresenter> profileProvider, 
             Provider<TextPresenter> textProvider) {
         super(eventBus, display);
 
@@ -77,7 +76,7 @@ public class MainPresenterImp extends BasePresenter<Display> implements MainPres
             this.presenter.unbind();
         }
     }
- 
+
     @Override
     public void bind() {
         super.bind();
@@ -88,80 +87,81 @@ public class MainPresenterImp extends BasePresenter<Display> implements MainPres
                 doResetRegistration();
             }
         }));
-        
+
         this.registerHandler(this.eventBus.addHandler(UserRegistrationEvent.getType(), new UserRegistrationHandler() {
-            
+
             public void onUserRegistration(UserRegistrationEvent event) {
                 doUserRegistration(event.getUser());
             }
         }));
-        
+
         this.registerHandler(this.eventBus.addHandler(UserLoginEvent.getType(), new UserLoginHandler() {
-            
+
             public void onUserLogin(UserLoginEvent event) {
                 doUserLogin(event.getUser());
             }
         }));
-        
+
         // menu click events
-        
+
         this.registerHandler(this.eventBus.addHandler(RegistrationClickEvent.getType(), new RegistrationClickHandler() {
-            
+
             public void onRegistrationClick(RegistrationClickEvent event) {
                 doRegistrationClick();
             }
         }));
-        
+
         this.registerHandler(this.eventBus.addHandler(LoginClickEvent.getType(), new LoginClickHandler() {
-            
+
             public void onLoginClick(LoginClickEvent event) {
                 doLoginClick();
             }
         }));
-        
+
         this.registerHandler(this.eventBus.addHandler(ProfileClickEvent.getType(), new ProfileClickHandler() {
-            
+
             public void onProfileClick(ProfileClickEvent event) {
                 doProfileClick();
             }
         }));
-        
+
         this.registerHandler(this.eventBus.addHandler(TextClickEvent.getType(), new TextClickHandler() {
-        	public void onTextClick(TextClickEvent event){
-        		doTextClick();
-        	}
+
+            public void onTextClick(TextClickEvent event) {
+                doTextClick();
+            }
         }
-        
+
         ));
-        		
-        
+
         eventBus.fireEvent(new LoginClickEvent());
     }
-    
-	protected void doTextClick() {
-		final TextPresenter presenter = this.textProvider.get();
-		this.switchPresenter(presenter);
-		
-	}
+
+    protected void doTextClick() {
+        final TextPresenter presenter = this.textProvider.get();
+        this.switchPresenter(presenter);
+
+    }
+
     protected void doProfileClick() {
         final ProfilePresenter presenter = this.profileProvider.get();
         this.switchPresenter(presenter);
-        
+
         if(this.userSvc == null) {
             this.userSvc = GWT.create(UserService.class);
         }
-        
+
         final AsyncCallback<UserDTO> callback = new AsyncCallback<UserDTO>() {
-            
+
             public void onSuccess(UserDTO user) {
                 presenter.setUser(new User(user));
             }
-            
+
             public void onFailure(Throwable caught) {
             }
         };
-        
-        this.userSvc.getUser(new Long(1), callback);
+
+        this.userSvc.getUser(4L, callback);
     }
 
     protected void doLoginClick() {
@@ -178,7 +178,7 @@ public class MainPresenterImp extends BasePresenter<Display> implements MainPres
         if(this.userSvc == null) {
             this.userSvc = GWT.create(UserService.class);
         }
-        
+
         AsyncCallback<String> callback = new AsyncCallback<String>() {
 
             public void onFailure(Throwable caught) {
@@ -191,7 +191,7 @@ public class MainPresenterImp extends BasePresenter<Display> implements MainPres
                 eventBus.fireEvent(new ProfileClickEvent());
             }
         };
-        
+
         this.userSvc.authenticate(user.getUsername(), user.getPassword(), callback);
     }
 
@@ -199,23 +199,23 @@ public class MainPresenterImp extends BasePresenter<Display> implements MainPres
         if(this.userSvc == null) {
             this.userSvc = GWT.create(UserService.class);
         }
-        
+
         AsyncCallback<Long> callback = new AsyncCallback<Long>() {
-            
+
             public void onSuccess(Long id) {
                 System.out.println("user is reg");
             }
-            
+
             public void onFailure(Throwable caught) {
                 System.out.println("could not reg user");
             }
         };
-        
+
         this.userSvc.saveUser(new UserDTO(user), callback);
     }
 
     protected void doResetRegistration() {
-        
+
     }
-    
+
 }

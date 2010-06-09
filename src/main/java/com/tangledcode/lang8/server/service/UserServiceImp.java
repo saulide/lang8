@@ -1,6 +1,7 @@
 package com.tangledcode.lang8.server.service;
 
 import org.hibernate.Session;
+import org.hibernate.criterion.Restrictions;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 import com.tangledcode.lang8.client.dto.UserDTO;
@@ -21,10 +22,11 @@ public class UserServiceImp extends RemoteServiceServlet implements UserService 
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         session.beginTransaction();
         
-        User user = (User) session.createQuery("SELECT u FROM users u WHERE u.username = :usename AND u.password = :password")
-            .setParameter("username", username)
-            .setParameter("password", digestedPassword)
-            .uniqueResult();
+        User user = (User) session
+                .createCriteria(User.class, "u")
+                .add(Restrictions.eq("u.username", username))
+                .add(Restrictions.eq("u.password", digestedPassword))
+                .uniqueResult();
         
         session.getTransaction().commit();
 
