@@ -1,13 +1,8 @@
 package com.tangledcode.lang8.client.event;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.google.gwt.event.shared.GwtEvent;
 
 public class TextClickEvent extends GwtEvent<TextClickHandler> {
-
-    private static final Logger logger = LoggerFactory.getLogger(TextClickEvent.class);
 
     private static Type<TextClickHandler> TYPE;
 
@@ -18,7 +13,6 @@ public class TextClickEvent extends GwtEvent<TextClickHandler> {
     }
 
     public TextClickEvent() {
-        logger.debug(">>> TextClickEvent fired");
     }
 
     @Override
