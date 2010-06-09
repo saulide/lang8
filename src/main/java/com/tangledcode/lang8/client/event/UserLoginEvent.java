@@ -14,8 +14,7 @@ public class UserLoginEvent extends GwtEvent<UserLoginHandler> {
     }
 
     private User user;
-    
-    
+
     public UserLoginEvent(User user) {
         this.user = user;
     }
@@ -29,7 +28,7 @@ public class UserLoginEvent extends GwtEvent<UserLoginHandler> {
     public Type<UserLoginHandler> getAssociatedType() {
         return getType();
     }
-    
+
     public User getUser() {
         return this.user;
     }

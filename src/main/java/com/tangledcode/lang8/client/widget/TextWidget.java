@@ -27,7 +27,10 @@ public class TextWidget extends Composite implements Display{
 	@UiField ListBox listBoxLanguage;
 	
 	
+<<<<<<< HEAD
 	
+=======
+>>>>>>> 456956b62d4cf4f2bf1ef4f65d8a475a13cdc907
 	public TextWidget() {
 		initWidget(uiBinder.createAndBindUi(this));
 		LanguageServiceAsync conn = 

@@ -11,6 +11,12 @@ public class ProfileClickEvent extends GwtEvent<ProfileClickHandler> {
                 ? TYPE
                 : (TYPE = new Type<ProfileClickHandler>());
     }
+    
+    private long id;
+    
+    public ProfileClickEvent(long id) {
+        this.id = id;
+    }
 
     @Override
     protected void dispatch(ProfileClickHandler handler) {
@@ -20,6 +26,10 @@ public class ProfileClickEvent extends GwtEvent<ProfileClickHandler> {
     @Override
     public Type<ProfileClickHandler> getAssociatedType() {
         return getType();
+    }
+    
+    public long getId() {
+        return this.id;
     }
 
 }

@@ -6,7 +6,7 @@ import com.tangledcode.lang8.client.model.User;
 public class UserRegistrationEvent extends GwtEvent<UserRegistrationHandler> {
 
     private static Type<UserRegistrationHandler> TYPE;
-    
+
     private User user;
 
     public static Type<UserRegistrationHandler> getType() {
@@ -14,7 +14,7 @@ public class UserRegistrationEvent extends GwtEvent<UserRegistrationHandler> {
                 ? TYPE
                 : (TYPE = new Type<UserRegistrationHandler>());
     }
-    
+
     public UserRegistrationEvent(User user) {
         this.user = user;
     }
