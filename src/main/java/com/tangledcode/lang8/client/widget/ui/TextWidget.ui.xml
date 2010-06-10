@@ -1,6 +1,24 @@
 <!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
 <ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
 	xmlns:g="urn:import:com.google.gwt.user.client.ui">
-	<g:HTMLPanel>
+	
+	<g:HTMLPanel styleName="content">
+	<g:VerticalPanel>
+		<g:HorizontalPanel>
+				<g:Label>Title</g:Label>
+				<g:TextArea ui:field="titleText"></g:TextArea>
+		</g:HorizontalPanel>
+				<g:HorizontalPanel>
+				<g:Label>Description</g:Label>
+				<g:TextArea ui:field="descriptionText"></g:TextArea>
+		</g:HorizontalPanel>
+		<g:Label>Content: </g:Label>
+		<g:RichTextArea ui:field="textInputField"></g:RichTextArea>	
+		<g:HorizontalPanel>
+			<g:Label>Select Language</g:Label>
+			<g:ListBox ui:field="listBoxLanguage"></g:ListBox>
+		</g:HorizontalPanel>	
+		<g:Button ui:field="submitBtn" text="Send"></g:Button>	
+	</g:VerticalPanel>
 	</g:HTMLPanel>
 </ui:UiBinder> 

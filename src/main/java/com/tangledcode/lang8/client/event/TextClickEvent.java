@@ -15,14 +15,14 @@ public class TextClickEvent extends GwtEvent<TextClickHandler> {
     }
 	@Override
 	protected void dispatch(TextClickHandler handler) {
-		// TODO Auto-generated method stub
+		handler.onTextClick(this);
 		
 	}
   
 	@Override
 	public com.google.gwt.event.shared.GwtEvent.Type<TextClickHandler> getAssociatedType() {
 		// TODO Auto-generated method stub
-		return null;
+		return getType();
 	}
 
 	
