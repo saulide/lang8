@@ -30,7 +30,7 @@ public class TextWidget extends Composite implements Display{
 	
 	public TextWidget() {
 		initWidget(uiBinder.createAndBindUi(this));
-		LanguageServiceAsync conn = 
+		
 		
 		
 	}
