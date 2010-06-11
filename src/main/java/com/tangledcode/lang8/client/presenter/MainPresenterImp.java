@@ -5,10 +5,11 @@ import org.enunes.gwt.mvp.client.presenter.BasePresenter;
 import org.enunes.gwt.mvp.client.presenter.Presenter;
 
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.user.client.Cookies;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
+import com.tangledcode.lang8.client.CurrentUser;
+import com.tangledcode.lang8.client.dto.AuthenticationResponse;
 import com.tangledcode.lang8.client.dto.GroupDTO;
 import com.tangledcode.lang8.client.dto.UserDTO;
 import com.tangledcode.lang8.client.event.GroupClickEvent;
@@ -23,6 +24,8 @@ import com.tangledcode.lang8.client.event.ResetRegistrationEvent;
 import com.tangledcode.lang8.client.event.ResetRegistrationHandler;
 import com.tangledcode.lang8.client.event.TextClickEvent;
 import com.tangledcode.lang8.client.event.TextClickHandler;
+import com.tangledcode.lang8.client.event.UserLoggedInEvent;
+import com.tangledcode.lang8.client.event.UserLoggedInHandler;
 import com.tangledcode.lang8.client.event.UserLoginEvent;
 import com.tangledcode.lang8.client.event.UserLoginHandler;
 import com.tangledcode.lang8.client.event.UserRegistrationEvent;
@@ -45,9 +48,8 @@ public class MainPresenterImp extends BasePresenter<Display> implements MainPres
     
     private UserServiceAsync userSvc = GWT.create(UserService.class);
     private GroupServiceAsync groupSvc = GWT.create(GroupService.class);
-    
+
     private Presenter<? extends org.enunes.gwt.mvp.client.view.Display> presenter;
-	
 
     @Inject
     public MainPresenterImp(EventBus eventBus, Display display, MenuPresenter menuPresenter, 
@@ -89,7 +91,7 @@ public class MainPresenterImp extends BasePresenter<Display> implements MainPres
             this.presenter.unbind();
         }
     }
- 
+
     @Override
     public void bind() {
         super.bind();
@@ -100,41 +102,48 @@ public class MainPresenterImp extends BasePresenter<Display> implements MainPres
                 doResetRegistration();
             }
         }));
-        
+
         this.registerHandler(this.eventBus.addHandler(UserRegistrationEvent.getType(), new UserRegistrationHandler() {
-            
+
             public void onUserRegistration(UserRegistrationEvent event) {
                 doUserRegistration(event.getUser());
             }
         }));
-        
+
         this.registerHandler(this.eventBus.addHandler(UserLoginEvent.getType(), new UserLoginHandler() {
-            
+
             public void onUserLogin(UserLoginEvent event) {
                 doUserLogin(event.getUser());
             }
         }));
         
-        // menu click events
-        
-        this.registerHandler(this.eventBus.addHandler(RegistrationClickEvent.getType(), new RegistrationClickHandler() {
+        this.registerHandler(this.eventBus.addHandler(UserLoggedInEvent.getType(), new UserLoggedInHandler() {
             
+            public void onUserLoggedIn(UserLoggedInEvent event) {
+                doUserLoggedIn();
+            }
+        }));
+
+        // menu click events
+
+        this.registerHandler(this.eventBus.addHandler(RegistrationClickEvent.getType(), new RegistrationClickHandler() {
+
             public void onRegistrationClick(RegistrationClickEvent event) {
                 doRegistrationClick();
             }
         }));
-        
+
         this.registerHandler(this.eventBus.addHandler(LoginClickEvent.getType(), new LoginClickHandler() {
-            
+
             public void onLoginClick(LoginClickEvent event) {
                 doLoginClick();
             }
         }));
-        
+
         this.registerHandler(this.eventBus.addHandler(ProfileClickEvent.getType(), new ProfileClickHandler() {
-            
+
             public void onProfileClick(ProfileClickEvent event) {
-                doProfileClick();
+                doProfileClick(event.getId());
             }
         }));
         
@@ -153,45 +162,34 @@ public class MainPresenterImp extends BasePresenter<Display> implements MainPres
         }));
         
         this.registerHandler(this.eventBus.addHandler(TextClickEvent.getType(), new TextClickHandler() {
-        	public void onTextClick(TextClickEvent event){
-        		doTextClick();
-        	}
+
+            public void onTextClick(TextClickEvent event) {
+                doTextClick();
+            }
         }
-        
+
         ));
-        		
-        
+
         eventBus.fireEvent(new LoginClickEvent());
     }
-    
-	protected void doTextClick() {
-		final TextPresenter presenter = this.textProvider.get();
-		this.switchPresenter(presenter);
-		
-	}
-    protected void doProfileClick() {
-        final ProfilePresenter presenter = this.profileProvider.get();
-        this.switchPresenter(presenter);
-        
-        if(this.userSvc == null) {
-            this.userSvc = GWT.create(UserService.class);
-        }
-        
-        final AsyncCallback<UserDTO> callback = new AsyncCallback<UserDTO>() {
-            
-            public void onSuccess(UserDTO user) {
-                presenter.setUser(new User(user));
-            }
-            
-            public void onFailure(Throwable caught) {
-            }
-        };
-        
-        this.userSvc.getUser(new Long(1), callback);
+
+    protected void doUserLoggedIn() {
+        eventBus.fireEvent(new ProfileClickEvent(CurrentUser.getUser().getId()));
     }
 
+    protected void doTextClick() {
+        final TextPresenter presenter = this.textProvider.get();
+        this.switchPresenter(presenter);
+
+    }
+    
     protected void doLoginClick() {
         final LoginPresenter presenter = this.loginProvider.get();
+        this.switchPresenter(presenter);
+    }
+
+    protected void doRegistrationClick() {
+        final RegistrationPresenter presenter = this.registrationProvider.get();
         this.switchPresenter(presenter);
     }
     
@@ -199,7 +197,28 @@ public class MainPresenterImp extends BasePresenter<Display> implements MainPres
         final GroupPresenter presenter = this.groupProvider.get();
         this.switchPresenter(presenter);
     }
-    
+
+    protected void doProfileClick(long id) {
+        final ProfilePresenter presenter = this.profileProvider.get();
+        this.switchPresenter(presenter);
+
+        if(this.userSvc == null) {
+            this.userSvc = GWT.create(UserService.class);
+        }
+
+        final AsyncCallback<UserDTO> callback = new AsyncCallback<UserDTO>() {
+
+            public void onFailure(Throwable caught) {
+            }
+
+            public void onSuccess(UserDTO user) {
+                presenter.setUser(new User(user));
+            }
+        };
+        
+        this.userSvc.getUser(id, CurrentUser.getSessionId(), callback);
+    }
+        
     protected void doNewGroup(Group group) {
         if(this.groupSvc == null) {
             this.groupSvc = GWT.create(GroupService.class);
@@ -220,29 +239,23 @@ public class MainPresenterImp extends BasePresenter<Display> implements MainPres
         this.groupSvc.saveGroup(new GroupDTO(group), callback);
     }
 
-    protected void doRegistrationClick() {
-        final RegistrationPresenter presenter = this.registrationProvider.get();
-        this.switchPresenter(presenter);
-    }
-
     protected void doUserLogin(User user) {
         if(this.userSvc == null) {
             this.userSvc = GWT.create(UserService.class);
         }
-        
-        AsyncCallback<String> callback = new AsyncCallback<String>() {
+
+        AsyncCallback<AuthenticationResponse> callback = new AsyncCallback<AuthenticationResponse>() {
 
             public void onFailure(Throwable caught) {
                 System.out.println("could not login");
             }
 
-            public void onSuccess(String sessionId) {
-                Cookies.setCookie("sessionId", sessionId);
-                System.out.println(sessionId);
-                eventBus.fireEvent(new ProfileClickEvent());
+            public void onSuccess(AuthenticationResponse response) {
+                CurrentUser.setUser(response.getUser(), response.getSessionId());
+                eventBus.fireEvent(new UserLoggedInEvent());
             }
         };
-        
+
         this.userSvc.authenticate(user.getUsername(), user.getPassword(), callback);
     }
 
@@ -250,23 +263,24 @@ public class MainPresenterImp extends BasePresenter<Display> implements MainPres
         if(this.userSvc == null) {
             this.userSvc = GWT.create(UserService.class);
         }
-        
+
         AsyncCallback<Long> callback = new AsyncCallback<Long>() {
+
+            public void onFailure(Throwable caught) {
+                System.err.println("could not reg");
+            }
             
             public void onSuccess(Long id) {
-                System.out.println("user is reg");
+                eventBus.fireEvent(new LoginClickEvent());
             }
-            
-            public void onFailure(Throwable caught) {
-                System.out.println("could not reg user");
-            }
+
         };
-        
-        this.userSvc.saveUser(new UserDTO(user), callback);
+
+        this.userSvc.saveUser(new UserDTO(user), CurrentUser.getSessionId(), callback);
     }
 
     protected void doResetRegistration() {
-        
+
     }
-    
+
 }

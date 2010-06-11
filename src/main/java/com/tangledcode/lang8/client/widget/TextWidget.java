@@ -31,7 +31,6 @@ public class TextWidget extends Composite implements Display{
 	}
 
 	public Widget asWidget() {
-		// TODO Auto-generated method stub
 		return this;
 	}
 

@@ -26,6 +26,8 @@ public class MenuWidget extends Composite implements Display {
 
     public MenuWidget() {
         initWidget(uiBinder.createAndBindUi(this));
+        
+        this.loggedOut();
     }
 
     public Widget asWidget() {
@@ -50,6 +52,22 @@ public class MenuWidget extends Composite implements Display {
 
     public HasClickHandlers getTextClickHandlers() {
         return this.textButton;
+    }
+
+    public void loggedIn() {
+        this.loginButton.setVisible(false);
+        this.registrationButton.setVisible(false);
+        this.groupButton.setVisible(true);
+        this.profileButton.setVisible(true);
+        this.textButton.setVisible(true);
+    }
+
+    public void loggedOut() {
+        this.loginButton.setVisible(true);
+        this.registrationButton.setVisible(true);
+        this.groupButton.setVisible(false);
+        this.profileButton.setVisible(false);
+        this.textButton.setVisible(false);
     }
 
 }
