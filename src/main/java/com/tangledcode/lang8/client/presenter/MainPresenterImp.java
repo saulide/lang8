@@ -16,6 +16,8 @@ import com.tangledcode.lang8.client.event.GroupClickEvent;
 import com.tangledcode.lang8.client.event.GroupClickHandler;
 import com.tangledcode.lang8.client.event.LoginClickEvent;
 import com.tangledcode.lang8.client.event.LoginClickHandler;
+import com.tangledcode.lang8.client.event.LogoutClickEvent;
+import com.tangledcode.lang8.client.event.LogoutClickHandler;
 import com.tangledcode.lang8.client.event.NewGroupEvent;
 import com.tangledcode.lang8.client.event.NewGroupHandler;
 import com.tangledcode.lang8.client.event.RegistrationClickEvent;
@@ -139,6 +141,13 @@ public class MainPresenterImp extends BasePresenter<Display> implements MainPres
                 doLoginClick();
             }
         }));
+        
+        this.registerHandler(this.eventBus.addHandler(LogoutClickEvent.getType(), new LogoutClickHandler() {
+
+            public void onLogoutClick(LogoutClickEvent event) {
+                doLogoutClick();
+            }
+        }));
 
         this.registerHandler(this.eventBus.addHandler(ProfileClickEvent.getType(), new ProfileClickHandler() {
 
@@ -185,6 +194,11 @@ public class MainPresenterImp extends BasePresenter<Display> implements MainPres
     protected void doLoginClick() {
         final LoginPresenter presenter = this.loginProvider.get();
         this.switchPresenter(presenter);
+    }
+    
+    protected void doLogoutClick() {
+        CurrentUser.reset();
+        doLoginClick();
     }
 
     protected void doRegistrationClick() {

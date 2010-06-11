@@ -16,8 +16,7 @@
 		<property name="show_sql">true</property>
 		<property name="hbm2ddl.auto">update</property>
 		
-		<mapping class="com.tangledcode.lang8.client.model.Group" />
-		
 		<mapping resource="com/tangledcode/lang8/hibernate/User.hbm.xml"/>
+		<!--<mapping resource="com/tangledcode/lang8/hibernate/Group.hbm.xml"/>-->
 	</session-factory>
 </hibernate-configuration>

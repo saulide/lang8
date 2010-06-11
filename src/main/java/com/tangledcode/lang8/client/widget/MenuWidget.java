@@ -21,6 +21,7 @@ public class MenuWidget extends Composite implements Display {
     @UiField Button registrationButton;
     @UiField Button groupButton;
     @UiField Button loginButton;
+    @UiField Button logoutButton;
     @UiField Button profileButton;
     @UiField Button textButton;
 
@@ -41,6 +42,10 @@ public class MenuWidget extends Composite implements Display {
     public HasClickHandlers getLoginClickHandlers() {
         return this.loginButton;
     }
+    
+    public HasClickHandlers getLogoutClickHandlers() {
+        return this.logoutButton;
+    }
 
     public HasClickHandlers getProfileClickHandlers() {
         return this.profileButton;
@@ -56,6 +61,7 @@ public class MenuWidget extends Composite implements Display {
 
     public void loggedIn() {
         this.loginButton.setVisible(false);
+        this.logoutButton.setVisible(true);
         this.registrationButton.setVisible(false);
         this.groupButton.setVisible(true);
         this.profileButton.setVisible(true);
@@ -64,10 +70,11 @@ public class MenuWidget extends Composite implements Display {
 
     public void loggedOut() {
         this.loginButton.setVisible(true);
+        this.logoutButton.setVisible(false);
         this.registrationButton.setVisible(true);
         this.groupButton.setVisible(false);
         this.profileButton.setVisible(false);
         this.textButton.setVisible(false);
     }
-
+    
 }

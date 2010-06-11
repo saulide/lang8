@@ -7,6 +7,8 @@ import com.google.gwt.event.dom.client.HasClickHandlers;
 public interface MenuPresenter extends Presenter<MenuPresenter.Display> {
 
     public interface Display extends org.enunes.gwt.mvp.client.view.Display {
+        
+        HasClickHandlers getLogoutClickHandlers();
 
         HasClickHandlers getLoginClickHandlers();
 

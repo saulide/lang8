@@ -3,6 +3,7 @@
 			 xmlns:g="urn:import:com.google.gwt.user.client.ui">
 	<g:FlowPanel styleName="menu">
 		<g:Button ui:field="loginButton" text="Login" />
+		<g:Button ui:field="logoutButton" text="Logout" />
 		<g:Button ui:field="registrationButton" text="Registration" />
 		<g:Button ui:field="profileButton" text="Profile" />
 		<g:Button ui:field="groupButton" text="Group" />

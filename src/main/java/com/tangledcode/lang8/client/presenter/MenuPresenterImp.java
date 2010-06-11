@@ -9,10 +9,13 @@ import com.google.inject.Inject;
 import com.tangledcode.lang8.client.CurrentUser;
 import com.tangledcode.lang8.client.event.GroupClickEvent;
 import com.tangledcode.lang8.client.event.LoginClickEvent;
+import com.tangledcode.lang8.client.event.LogoutClickEvent;
 import com.tangledcode.lang8.client.event.RegistrationClickEvent;
 import com.tangledcode.lang8.client.event.TextClickEvent;
 import com.tangledcode.lang8.client.event.UserLoggedInEvent;
 import com.tangledcode.lang8.client.event.UserLoggedInHandler;
+import com.tangledcode.lang8.client.event.UserLoggedOutEvent;
+import com.tangledcode.lang8.client.event.UserLoggedOutHandler;
 import com.tangledcode.lang8.client.presenter.MenuPresenter.Display;
 
 public class MenuPresenterImp extends BasePresenter<Display> implements MenuPresenter {
@@ -37,6 +40,13 @@ public class MenuPresenterImp extends BasePresenter<Display> implements MenuPres
             
             public void onClick(ClickEvent event) {
                 eventBus.fireEvent(new LoginClickEvent());
+            }
+        });
+        
+        this.display.getLogoutClickHandlers().addClickHandler(new ClickHandler() {
+            
+            public void onClick(ClickEvent event) {
+                eventBus.fireEvent(new LogoutClickEvent());
             }
         });
         
@@ -68,6 +78,14 @@ public class MenuPresenterImp extends BasePresenter<Display> implements MenuPres
                 doLogin();
             }
         }));
+        
+        this.registerHandler(this.eventBus.addHandler(UserLoggedOutEvent.getType(), new UserLoggedOutHandler() {
+
+            public void onUserLoggout(UserLoggedOutEvent event) {
+                doLogout();
+            }
+            
+        }));
     }
 
     public void doLogin() {
@@ -75,6 +93,6 @@ public class MenuPresenterImp extends BasePresenter<Display> implements MenuPres
     }
 
     public void doLogout() {
-        
+        this.display.loggedOut();
     }
 }
