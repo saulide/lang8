@@ -50,8 +50,8 @@ public class MainPresenterImp extends BasePresenter<Display> implements MainPres
     
     private UserServiceAsync userSvc = GWT.create(UserService.class);
     private GroupServiceAsync groupSvc = GWT.create(GroupService.class);
-    
-        @Inject
+
+    @Inject
     public MainPresenterImp(EventBus eventBus, Display display, MenuPresenter menuPresenter, 
             Provider<RegistrationPresenter> registrationProvider,
             Provider<LoginPresenter> loginProvider,
@@ -191,12 +191,12 @@ public class MainPresenterImp extends BasePresenter<Display> implements MainPres
         final RegistrationPresenter presenter = this.registrationProvider.get();
         this.switchPresenter(presenter);
     }
-
+    
     protected void doGroupClick() {
         final GroupPresenter presenter = this.groupProvider.get();
         this.switchPresenter(presenter);
     }
-    
+
     protected void doProfileClick(long id) {
         final ProfilePresenter presenter = this.profileProvider.get();
         this.switchPresenter(presenter);
@@ -213,11 +213,11 @@ public class MainPresenterImp extends BasePresenter<Display> implements MainPres
             public void onSuccess(UserDTO user) {
                 presenter.setUser(new User(user));
             }
-
         };
+        
+        this.userSvc.getUser(id, CurrentUser.getSessionId(), callback);
     }
-
-    
+        
     protected void doNewGroup(Group group) {
         if(this.groupSvc == null) {
             this.groupSvc = GWT.create(GroupService.class);
