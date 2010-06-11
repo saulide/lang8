@@ -1,6 +1,8 @@
 package com.tangledcode.lang8.client.gin;
 
 import com.google.gwt.inject.client.AbstractGinModule;
+import com.tangledcode.lang8.client.presenter.GroupPresenter;
+import com.tangledcode.lang8.client.presenter.GroupPresenterImp;
 import com.tangledcode.lang8.client.presenter.LoginPresenter;
 import com.tangledcode.lang8.client.presenter.LoginPresenterImp;
 import com.tangledcode.lang8.client.presenter.MainPresenter;
@@ -13,6 +15,7 @@ import com.tangledcode.lang8.client.presenter.RegistrationPresenter;
 import com.tangledcode.lang8.client.presenter.RegistrationPresenterImp;
 import com.tangledcode.lang8.client.presenter.TextPresenter;
 import com.tangledcode.lang8.client.presenter.TextPresenterImp;
+import com.tangledcode.lang8.client.widget.GroupWidget;
 import com.tangledcode.lang8.client.widget.LoginWidget;
 import com.tangledcode.lang8.client.widget.MainWidget;
 import com.tangledcode.lang8.client.widget.MenuWidget;
@@ -46,6 +49,8 @@ public class Module extends AbstractGinModule {
         bind(ProfilePresenter.class).to(ProfilePresenterImp.class);
         bind(ProfilePresenter.Display.class).to(ProfileWidget.class);
         
+        bind(GroupPresenter.class).to(GroupPresenterImp.class);
+        bind(GroupPresenter.Display.class).to(GroupWidget.class);
 
     }    
 
