@@ -1,0 +1,35 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui">
+	
+	<g:HTMLPanel styleName="content">
+	
+		<h3>Groups</h3>
+		
+		<p>
+			Coming soon: A list of groups and a link to details...
+		</p>
+		
+		<hr />
+		
+		<h4>Create new group</h4>
+		
+		<p>
+			<p>
+				<g:Label text="Title" />
+				<g:TextBox ui:field="newGroupTitle" />
+			</p>
+			<p>
+				<g:Label text="Describtion" />
+				<g:TextArea ui:field="newGroupDescribtion" />
+			</p>
+			<p>
+				<g:Button ui:field="newGroupButton" />
+			</p>
+		</p>
+		
+		<hr />
+	
+	</g:HTMLPanel>
+	
+</ui:UiBinder> 

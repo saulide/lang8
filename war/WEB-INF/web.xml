@@ -14,9 +14,19 @@
   	<servlet-class>com.tangledcode.lang8.server.service.UserServiceImp</servlet-class>
   </servlet>
   
+  <servlet>
+  	<servlet-name>groupServiceImp</servlet-name>
+  	<servlet-class>com.tangledcode.lang8.server.service.GroupServiceImp</servlet-class>
+  </servlet>
+  
   <servlet-mapping>
   	<servlet-name>userServiceImp</servlet-name>
   	<url-pattern>/lang8/user</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+  	<servlet-name>groupServiceImp</servlet-name>
+  	<url-pattern>/lang8/group</url-pattern>
   </servlet-mapping>
 
 </web-app>

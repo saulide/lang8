@@ -6,6 +6,7 @@ import org.enunes.gwt.mvp.client.presenter.BasePresenter;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.inject.Inject;
+import com.tangledcode.lang8.client.event.GroupClickEvent;
 import com.tangledcode.lang8.client.event.LoginClickEvent;
 import com.tangledcode.lang8.client.event.RegistrationClickEvent;
 import com.tangledcode.lang8.client.event.TextClickEvent;
@@ -42,6 +43,14 @@ public class MenuPresenterImp extends BasePresenter<Display> implements MenuPres
                 eventBus.fireEvent(new ProfileClickEvent());
             }
         });
+        
+        this.display.getGroupClickHandlers().addClickHandler(new ClickHandler() {
+            
+            public void onClick(ClickEvent event) {
+                eventBus.fireEvent(new GroupClickEvent());
+            }
+        });
+        
         this.display.getTextClickHandlers().addClickHandler(new ClickHandler() {
 			
 			public void onClick(ClickEvent event) {

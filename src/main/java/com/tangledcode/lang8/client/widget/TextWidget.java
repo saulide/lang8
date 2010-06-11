@@ -25,7 +25,7 @@ public class TextWidget extends Composite implements Display{
 	//@UiField HeadingElement username;
 	
 	
-	public TextWidget(String firstName) {
+	public TextWidget() {
 		initWidget(uiBinder.createAndBindUi(this));
 		
 	}

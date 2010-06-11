@@ -9,9 +9,14 @@ import com.google.gwt.user.client.Cookies;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
+import com.tangledcode.lang8.client.dto.GroupDTO;
 import com.tangledcode.lang8.client.dto.UserDTO;
+import com.tangledcode.lang8.client.event.GroupClickEvent;
+import com.tangledcode.lang8.client.event.GroupClickHandler;
 import com.tangledcode.lang8.client.event.LoginClickEvent;
 import com.tangledcode.lang8.client.event.LoginClickHandler;
+import com.tangledcode.lang8.client.event.NewGroupEvent;
+import com.tangledcode.lang8.client.event.NewGroupHandler;
 import com.tangledcode.lang8.client.event.RegistrationClickEvent;
 import com.tangledcode.lang8.client.event.RegistrationClickHandler;
 import com.tangledcode.lang8.client.event.ResetRegistrationEvent;
@@ -22,8 +27,11 @@ import com.tangledcode.lang8.client.event.UserLoginEvent;
 import com.tangledcode.lang8.client.event.UserLoginHandler;
 import com.tangledcode.lang8.client.event.UserRegistrationEvent;
 import com.tangledcode.lang8.client.event.UserRegistrationHandler;
+import com.tangledcode.lang8.client.model.Group;
 import com.tangledcode.lang8.client.model.User;
 import com.tangledcode.lang8.client.presenter.MainPresenter.Display;
+import com.tangledcode.lang8.client.service.GroupService;
+import com.tangledcode.lang8.client.service.GroupServiceAsync;
 import com.tangledcode.lang8.client.service.UserService;
 import com.tangledcode.lang8.client.service.UserServiceAsync;
 
@@ -32,9 +40,11 @@ public class MainPresenterImp extends BasePresenter<Display> implements MainPres
     private final Provider<RegistrationPresenter> registrationProvider;
     private final Provider<LoginPresenter> loginProvider;
     private final Provider<ProfilePresenter> profileProvider;
+    private final Provider<GroupPresenter> groupProvider;
     private final Provider<TextPresenter> textProvider;
     
     private UserServiceAsync userSvc = GWT.create(UserService.class);
+    private GroupServiceAsync groupSvc = GWT.create(GroupService.class);
     
     private Presenter<? extends org.enunes.gwt.mvp.client.view.Display> presenter;
 	
@@ -44,12 +54,14 @@ public class MainPresenterImp extends BasePresenter<Display> implements MainPres
             Provider<RegistrationPresenter> registrationProvider,
             Provider<LoginPresenter> loginProvider,
             Provider<ProfilePresenter> profileProvider,
+            Provider<GroupPresenter> groupProvider,
             Provider<TextPresenter> textProvider) {
         super(eventBus, display);
 
         this.registrationProvider = registrationProvider;
         this.loginProvider = loginProvider;
         this.profileProvider = profileProvider;
+        this.groupProvider = groupProvider;
         this.textProvider = textProvider;
 
         menuPresenter.bind();
@@ -126,6 +138,20 @@ public class MainPresenterImp extends BasePresenter<Display> implements MainPres
             }
         }));
         
+        this.registerHandler(this.eventBus.addHandler(GroupClickEvent.getType(), new GroupClickHandler() {
+            
+            public void onGroupClick(GroupClickEvent event) {
+                doGroupClick();
+            }
+        }));
+        
+        this.registerHandler(this.eventBus.addHandler(NewGroupEvent.getType(), new NewGroupHandler() {
+            
+            public void onNewGroupClick(NewGroupEvent event) {
+                doNewGroup(event.getGroup());
+            }
+        }));
+        
         this.registerHandler(this.eventBus.addHandler(TextClickEvent.getType(), new TextClickHandler() {
         	public void onTextClick(TextClickEvent event){
         		doTextClick();
@@ -167,6 +193,31 @@ public class MainPresenterImp extends BasePresenter<Display> implements MainPres
     protected void doLoginClick() {
         final LoginPresenter presenter = this.loginProvider.get();
         this.switchPresenter(presenter);
+    }
+    
+    protected void doGroupClick() {
+        final GroupPresenter presenter = this.groupProvider.get();
+        this.switchPresenter(presenter);
+    }
+    
+    protected void doNewGroup(Group group) {
+        if(this.groupSvc == null) {
+            this.groupSvc = GWT.create(GroupService.class);
+        }
+        
+        AsyncCallback<Integer> callback = new AsyncCallback<Integer>() {
+            
+            public void onSuccess(Integer id) {
+                System.out.println("New group is created!");
+            }
+            
+            public void onFailure(Throwable caught) {
+                System.out.println("Could not create new Group!");
+            }
+
+        };
+        
+        this.groupSvc.saveGroup(new GroupDTO(group), callback);
     }
 
     protected void doRegistrationClick() {
