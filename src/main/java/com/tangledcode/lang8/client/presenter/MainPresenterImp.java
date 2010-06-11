@@ -28,6 +28,7 @@ import com.tangledcode.lang8.client.event.TextClickEvent;
 import com.tangledcode.lang8.client.event.TextClickHandler;
 import com.tangledcode.lang8.client.event.UserLoggedInEvent;
 import com.tangledcode.lang8.client.event.UserLoggedInHandler;
+import com.tangledcode.lang8.client.event.UserLoggedOutEvent;
 import com.tangledcode.lang8.client.event.UserLoginEvent;
 import com.tangledcode.lang8.client.event.UserLoginHandler;
 import com.tangledcode.lang8.client.event.UserRegistrationEvent;
@@ -199,6 +200,7 @@ public class MainPresenterImp extends BasePresenter<Display> implements MainPres
     protected void doLogoutClick() {
         CurrentUser.reset();
         doLoginClick();
+        eventBus.fireEvent(new UserLoggedOutEvent());
     }
 
     protected void doRegistrationClick() {
