@@ -5,6 +5,8 @@ import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiTemplate;
+import com.google.gwt.user.client.Command;
+import com.google.gwt.user.client.DeferredCommand;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HasText;
@@ -43,6 +45,16 @@ public class LoginWidget extends Composite implements Display {
 
     public Widget asWidget() {
         return this;
+    }
+
+    public void onShow() {
+        DeferredCommand.addCommand(new Command() {
+            
+            public void execute() {
+                usernameTextBox.setFocus(true);
+            }
+        });
+        
     }
 
 }

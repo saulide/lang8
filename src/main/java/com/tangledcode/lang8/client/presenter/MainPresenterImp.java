@@ -36,6 +36,7 @@ import com.tangledcode.lang8.client.event.UserRegistrationHandler;
 import com.tangledcode.lang8.client.model.Group;
 import com.tangledcode.lang8.client.model.User;
 import com.tangledcode.lang8.client.presenter.MainPresenter.Display;
+import com.tangledcode.lang8.client.presenter.RegistrationPresenter.Display.UserRegistrationDetails;
 import com.tangledcode.lang8.client.service.GroupService;
 import com.tangledcode.lang8.client.service.GroupServiceAsync;
 import com.tangledcode.lang8.client.service.UserService;
@@ -274,7 +275,7 @@ public class MainPresenterImp extends BasePresenter<Display> implements MainPres
         this.userSvc.authenticate(user.getUsername(), user.getPassword(), callback);
     }
 
-    protected void doUserRegistration(User user) {
+    protected void doUserRegistration(UserRegistrationDetails userRegistrationDetails) {
         if(this.userSvc == null) {
             this.userSvc = GWT.create(UserService.class);
         }
@@ -291,7 +292,16 @@ public class MainPresenterImp extends BasePresenter<Display> implements MainPres
 
         };
 
-        this.userSvc.saveUser(new UserDTO(user), CurrentUser.getSessionId(), callback);
+        if(userRegistrationDetails.getPassword().equals(userRegistrationDetails.getPasswordConfirmation())) {
+            User user = new User(
+                    userRegistrationDetails.getUsername(),
+                    userRegistrationDetails.getEmail(),
+                    userRegistrationDetails.getPassword());
+            
+            this.userSvc.saveUser(new UserDTO(user), CurrentUser.getSessionId(), callback);
+        } else {
+            
+        }
     }
 
     protected void doResetRegistration() {

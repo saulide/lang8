@@ -58,7 +58,7 @@ public class UserServiceImp extends RemoteServiceServlet implements UserService 
         return new UserDTO(user);
     }
 
-    public Long saveUser(UserDTO userDTO, String sessionId) throws UserAuthenticationException {
+    public long saveUser(UserDTO userDTO, String sessionId) throws UserAuthenticationException {
         if(this.sessionId == null || !this.sessionId.equals(sessionId)) {
             throw new UserAuthenticationException();
         }
@@ -73,6 +73,20 @@ public class UserServiceImp extends RemoteServiceServlet implements UserService 
         session.getTransaction().commit();
 
         return user.getId();
+    }
+
+    public boolean checkUsername(String username) {
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        session.beginTransaction();
+        
+        User user = (User) session
+                .createCriteria(User.class, "u")
+                .add(Restrictions.eq("u.username", username))
+                .uniqueResult();
+        
+        session.getTransaction().commit();
+        
+        return user == null;
     }
 
 }

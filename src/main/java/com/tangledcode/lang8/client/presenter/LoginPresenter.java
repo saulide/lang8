@@ -15,6 +15,8 @@ public interface LoginPresenter extends Presenter<LoginPresenter.Display> {
 
         HasClickHandlers getLoginClickHandlers();
         
+        void onShow();
+        
     }
 
 }

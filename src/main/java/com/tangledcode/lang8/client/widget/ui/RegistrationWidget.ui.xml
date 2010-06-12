@@ -1,11 +1,14 @@
 <!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
 <ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
 			 xmlns:g="urn:import:com.google.gwt.user.client.ui">
+	<ui:with field="res" type="com.tangledcode.lang8.client.widget.Resources" />
 	<g:HTMLPanel styleName="content">
 		<h2>User Registration</h2>
 		<p>
 			<g:Label text="Username:" />
 			<g:TextBox ui:field="usernameTextBox" />
+			<g:Image resource="{res.valid}" ui:field="usernameValid" />
+			<g:Image resource="{res.invalid}" ui:field="usernameInvalid" />
 		</p>
 		<p>
 			<g:Label text="Email:" />

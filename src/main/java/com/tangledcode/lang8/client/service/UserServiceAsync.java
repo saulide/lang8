@@ -12,4 +12,6 @@ public interface UserServiceAsync {
 
     void getUser(long id, String sessionId, AsyncCallback<UserDTO> callback);
 
+    void checkUsername(String username, AsyncCallback<Boolean> callback);
+
 }

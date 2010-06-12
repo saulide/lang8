@@ -1,13 +1,13 @@
 package com.tangledcode.lang8.client.event;
 
 import com.google.gwt.event.shared.GwtEvent;
-import com.tangledcode.lang8.client.model.User;
+import com.tangledcode.lang8.client.presenter.RegistrationPresenter.Display.UserRegistrationDetails;
 
 public class UserRegistrationEvent extends GwtEvent<UserRegistrationHandler> {
 
     private static Type<UserRegistrationHandler> TYPE;
 
-    private User user;
+    private UserRegistrationDetails user;
 
     public static Type<UserRegistrationHandler> getType() {
         return TYPE != null
@@ -15,7 +15,7 @@ public class UserRegistrationEvent extends GwtEvent<UserRegistrationHandler> {
                 : (TYPE = new Type<UserRegistrationHandler>());
     }
 
-    public UserRegistrationEvent(User user) {
+    public UserRegistrationEvent(UserRegistrationDetails user) {
         this.user = user;
     }
 
@@ -29,7 +29,7 @@ public class UserRegistrationEvent extends GwtEvent<UserRegistrationHandler> {
         return getType();
     }
 
-    public User getUser() {
+    public UserRegistrationDetails getUser() {
         return this.user;
     }
 

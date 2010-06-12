@@ -32,6 +32,8 @@ public class LoginPresenterImp extends BasePresenter<Display> implements LoginPr
                 eventBus.fireEvent(new UserLoginEvent(user));
             }
         });
+        
+        this.display.onShow();
     } 
 
 }

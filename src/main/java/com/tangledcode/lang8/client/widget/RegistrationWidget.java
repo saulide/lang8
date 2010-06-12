@@ -1,13 +1,17 @@
 package com.tangledcode.lang8.client.widget;
 
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.event.dom.client.HasAllFocusHandlers;
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiTemplate;
+import com.google.gwt.user.client.Command;
+import com.google.gwt.user.client.DeferredCommand;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HasText;
+import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.PasswordTextBox;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Widget;
@@ -28,6 +32,10 @@ public class RegistrationWidget extends Composite implements Display {
     @UiField PasswordTextBox passwordConfirmationTextBox;
     @UiField Button resetButton;
     @UiField Button registrationButton;
+    @UiField Image usernameValid;
+    @UiField Image usernameInvalid;
+    
+    final Resources resources = GWT.create(Resources.class);
 
     public RegistrationWidget() {
         initWidget(uiBinder.createAndBindUi(this));
@@ -56,9 +64,34 @@ public class RegistrationWidget extends Composite implements Display {
     public HasText getUsernameText() {
         return this.usernameTextBox;
     }
+    
+    public HasAllFocusHandlers getUsernameFocus() {
+        return this.usernameTextBox;
+    }
 
     public Widget asWidget() {
         return this;
+    }
+
+    public void onShow() {
+        DeferredCommand.addCommand(new Command() {
+            
+            public void execute() {
+                usernameTextBox.setFocus(true);
+                usernameValid.setVisible(false);
+                usernameInvalid.setVisible(false);
+            }
+        });
+    }
+
+    public void usernameInvalid() {
+        usernameValid.setVisible(false);
+        usernameInvalid.setVisible(true);
+    }
+
+    public void usernameValid() {
+        usernameValid.setVisible(true);
+        usernameInvalid.setVisible(false);
     }
 
 }
