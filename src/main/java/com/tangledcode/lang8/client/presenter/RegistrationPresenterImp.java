@@ -8,8 +8,12 @@ import com.google.gwt.event.dom.client.BlurEvent;
 import com.google.gwt.event.dom.client.BlurHandler;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.event.dom.client.KeyCodes;
+import com.google.gwt.event.dom.client.KeyPressEvent;
+import com.google.gwt.event.dom.client.KeyPressHandler;
+import com.google.gwt.event.dom.client.KeyUpEvent;
+import com.google.gwt.event.dom.client.KeyUpHandler;
 import com.google.gwt.user.client.rpc.AsyncCallback;
-import com.google.gwt.user.client.ui.TextBox;
 import com.google.inject.Inject;
 import com.tangledcode.lang8.client.event.ResetRegistrationEvent;
 import com.tangledcode.lang8.client.event.UserRegistrationEvent;
@@ -41,23 +45,75 @@ public class RegistrationPresenterImp extends BasePresenter<Display> implements 
         this.display.getRegistrationClickHandlers().addClickHandler(new ClickHandler() {
 
             public void onClick(ClickEvent event) {
-                String username = display.getUsernameText().getText();
-                String email = display.getEmailText().getText();
-                String password = display.getPasswordText().getText();
-                String passwordConfirmation = display.getPasswordConfirmationText().getText();
-
-                eventBus.fireEvent(new UserRegistrationEvent(new UserRegistrationDetailsImpl(username, email, password, passwordConfirmation)));
+                doSendForm();
             }
         });
         
         this.display.getUsernameFocus().addBlurHandler(new BlurHandler() {
             
             public void onBlur(BlurEvent event) {
-                doCheckUsername(((TextBox)event.getSource()).getText());
+                String username = display.getUsernameText().getText();
+                
+                if(username.equals("")) {
+                    return;
+                }
+                
+                doCheckUsername(username);
             }
         });
+        
+        KeyUpHandler handler = new KeyUpHandler() {
+            
+            public void onKeyUp(KeyUpEvent event) {
+                String password = display.getPasswordText().getText();
+                String passwordConfirmation = display.getPasswordConfirmationText().getText();
+                
+                doPasswordConfirmation(password, passwordConfirmation);
+            }
+        };
+        
+        this.display.getPasswordKeyUpHandlers().addKeyUpHandler(handler);
+        this.display.getPasswordConfirmationKeyUpHandlers().addKeyUpHandler(handler);
+        
+        KeyPressHandler enterHandler = new KeyPressHandler() {
+            
+            public void onKeyPress(KeyPressEvent event) {
+                if(event.getCharCode() == KeyCodes.KEY_ENTER) {
+                    doSendForm();
+                }
+            }
+        };
+        
+        this.display.getUsernameKeyPressHandlers().addKeyPressHandler(enterHandler);
+        this.display.getEmailKeyPressHandlers().addKeyPressHandler(enterHandler);
+        this.display.getPasswordKeyPressHandlers().addKeyPressHandler(enterHandler);
+        this.display.getPasswordConfirmationKeyPressHandlers().addKeyPressHandler(enterHandler);
 
         this.display.onShow();
+    }
+
+    protected void doSendForm() {
+        String username = this.display.getUsernameText().getText();
+        String email = this.display.getEmailText().getText();
+        String password = this.display.getPasswordText().getText();
+        String passwordConfirmation = this.display.getPasswordConfirmationText().getText();
+        
+        if(username.equals("") 
+                || email.equals("")
+                || password.equals("")
+                || !password.equals(passwordConfirmation)) {
+            return;
+        }
+
+        this.eventBus.fireEvent(new UserRegistrationEvent(new UserRegistrationDetailsImpl(username, email, password, passwordConfirmation)));
+    }
+
+    protected void doPasswordConfirmation(String password, String passwordConfirmation) {
+        if(!password.equals("") && password.equals(passwordConfirmation)) {
+            this.display.passwordValid();
+        } else {
+            this.display.passwordInvalid();
+        }
     }
 
     protected void doCheckUsername(String username) {

@@ -8,6 +8,4 @@
   <entry-point class='com.tangledcode.lang8.client.Application'/>
 
   <source path='client'/>
-  <source path='shared'/>
-
 </module>

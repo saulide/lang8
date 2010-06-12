@@ -3,6 +3,8 @@ package com.tangledcode.lang8.client.widget;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.HasAllFocusHandlers;
 import com.google.gwt.event.dom.client.HasClickHandlers;
+import com.google.gwt.event.dom.client.HasKeyPressHandlers;
+import com.google.gwt.event.dom.client.HasKeyUpHandlers;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiTemplate;
@@ -34,6 +36,8 @@ public class RegistrationWidget extends Composite implements Display {
     @UiField Button registrationButton;
     @UiField Image usernameValid;
     @UiField Image usernameInvalid;
+    @UiField Image passwordValid;
+    @UiField Image passwordInvalid;
     
     final Resources resources = GWT.create(Resources.class);
 
@@ -52,6 +56,14 @@ public class RegistrationWidget extends Composite implements Display {
     public HasText getPasswordText() {
         return this.passwordTextBox;
     }
+    
+    public HasKeyUpHandlers getPasswordKeyUpHandlers() {
+        return this.passwordTextBox;
+    }
+
+    public HasKeyUpHandlers getPasswordConfirmationKeyUpHandlers() {
+        return this.passwordConfirmationTextBox;
+    }
 
     public HasClickHandlers getRegistrationClickHandlers() {
         return this.registrationButton;
@@ -68,6 +80,22 @@ public class RegistrationWidget extends Composite implements Display {
     public HasAllFocusHandlers getUsernameFocus() {
         return this.usernameTextBox;
     }
+    
+    public HasKeyPressHandlers getEmailKeyPressHandlers() {
+        return this.emailTextBox;
+    }
+
+    public HasKeyPressHandlers getPasswordConfirmationKeyPressHandlers() {
+        return this.passwordConfirmationTextBox;
+    }
+
+    public HasKeyPressHandlers getPasswordKeyPressHandlers() {
+        return this.passwordTextBox;
+    }
+
+    public HasKeyPressHandlers getUsernameKeyPressHandlers() {
+        return this.usernameTextBox;
+    }
 
     public Widget asWidget() {
         return this;
@@ -80,18 +108,30 @@ public class RegistrationWidget extends Composite implements Display {
                 usernameTextBox.setFocus(true);
                 usernameValid.setVisible(false);
                 usernameInvalid.setVisible(false);
+                passwordValid.setVisible(false);
+                passwordInvalid.setVisible(false);
             }
         });
     }
 
     public void usernameInvalid() {
-        usernameValid.setVisible(false);
-        usernameInvalid.setVisible(true);
+        this.usernameValid.setVisible(false);
+        this.usernameInvalid.setVisible(true);
     }
 
     public void usernameValid() {
-        usernameValid.setVisible(true);
-        usernameInvalid.setVisible(false);
+        this.usernameValid.setVisible(true);
+        this.usernameInvalid.setVisible(false);
+    }
+
+    public void passwordInvalid() {
+        this.passwordValid.setVisible(false);
+        this.passwordInvalid.setVisible(true);
+    }
+
+    public void passwordValid() {
+        this.passwordValid.setVisible(true);
+        this.passwordInvalid.setVisible(false);
     }
 
 }

@@ -13,7 +13,7 @@ public interface UserService extends RemoteService {
 
     UserDTO getUser(long id, String sessionId) throws UserAuthenticationException;
 
-    long saveUser(UserDTO user, String sessionId) throws UserAuthenticationException;
+    long saveUser(UserDTO user) throws UserAuthenticationException;
     
     boolean checkUsername(String username);
 

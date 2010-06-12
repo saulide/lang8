@@ -8,7 +8,7 @@ public interface UserServiceAsync {
 
     void authenticate(String username, String password, AsyncCallback<AuthenticationResponse> callback);
 
-    void saveUser(UserDTO user, String sessionId, AsyncCallback<Long> callback);
+    void saveUser(UserDTO user, AsyncCallback<Long> callback);
 
     void getUser(long id, String sessionId, AsyncCallback<UserDTO> callback);
 

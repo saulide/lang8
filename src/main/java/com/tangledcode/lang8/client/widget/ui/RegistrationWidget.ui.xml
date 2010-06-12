@@ -17,6 +17,8 @@
 		<p>
 			<g:Label text="Password:" />
 			<g:PasswordTextBox ui:field="passwordTextBox" />
+			<g:Image resource="{res.valid}" ui:field="passwordValid" />
+			<g:Image resource="{res.invalid}" ui:field="passwordInvalid" />
 		</p>
 		<p>
 			<g:Label text="Password: (Confirmation)" />

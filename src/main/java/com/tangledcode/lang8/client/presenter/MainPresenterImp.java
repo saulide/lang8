@@ -292,16 +292,12 @@ public class MainPresenterImp extends BasePresenter<Display> implements MainPres
 
         };
 
-        if(userRegistrationDetails.getPassword().equals(userRegistrationDetails.getPasswordConfirmation())) {
-            User user = new User(
-                    userRegistrationDetails.getUsername(),
-                    userRegistrationDetails.getEmail(),
-                    userRegistrationDetails.getPassword());
-            
-            this.userSvc.saveUser(new UserDTO(user), CurrentUser.getSessionId(), callback);
-        } else {
-            
-        }
+        User user = new User(
+                userRegistrationDetails.getUsername(),
+                userRegistrationDetails.getEmail(),
+                userRegistrationDetails.getPassword());
+        
+        this.userSvc.saveUser(new UserDTO(user), callback);
     }
 
     protected void doResetRegistration() {
