@@ -20,6 +20,8 @@ public interface MenuPresenter extends Presenter<MenuPresenter.Display> {
 
         HasClickHandlers getTextClickHandlers();
         
+        HasClickHandlers getTextSearchClickHandlers();
+        
         void loggedIn();
         
         void loggedOut();

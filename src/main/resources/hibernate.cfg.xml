@@ -5,9 +5,9 @@
 <hibernate-configuration>
 	<session-factory>
 		<property name="connection.driver_class">org.postgresql.Driver</property>
-		<property name="connection.url">jdbc:postgresql://localhost/lang8</property>
-		<property name="connection.username">malone</property>
-		<property name="connection.password"></property>
+		<property name="connection.url">jdbc:postgresql://127.0.0.1/lang8</property>
+		<property name="connection.username">db_user</property>
+		<property name="connection.password">db_user</property>
 		<property name="connection.pool">1</property>
 		
 		<property name="dialect">org.hibernate.dialect.PostgreSQLDialect</property>
@@ -17,6 +17,7 @@
 		<property name="hbm2ddl.auto">update</property>
 		
 		<mapping resource="com/tangledcode/lang8/hibernate/User.hbm.xml"/>
+		<mapping resource="com/tangledcode/lang8/hibernate/Languages.hbm.xml"/>
 		<!--<mapping resource="com/tangledcode/lang8/hibernate/Group.hbm.xml"/>-->
 	</session-factory>
 </hibernate-configuration>

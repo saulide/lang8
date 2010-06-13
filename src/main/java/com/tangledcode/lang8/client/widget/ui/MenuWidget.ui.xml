@@ -8,5 +8,6 @@
 		<g:Button ui:field="profileButton" text="Profile" />
 		<g:Button ui:field="groupButton" text="Group" />
 		<g:Button ui:field="textButton" text="Text" />
+		<g:Button ui:field="textSearchButton" text="Text Search"></g:Button>
 	</g:FlowPanel>
 </ui:UiBinder> 

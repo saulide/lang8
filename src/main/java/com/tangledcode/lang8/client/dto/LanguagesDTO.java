@@ -8,23 +8,23 @@ public class LanguagesDTO implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 6453734377788847334L;
-	private int id;
+	private String id;
 	private String title;
 	
 	public LanguagesDTO() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public LanguagesDTO(int id2, String title2) {
+	public LanguagesDTO(String id2, String title2) {
 		this.id = id2;
 		this.title = title2;
 	}
 
-	public int getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 
