@@ -40,9 +40,7 @@ public class TextWidget extends Composite implements Display{
 		
 	}
 	
-	public HasHTML getEnteredText() {
-		return this.textInputField;
-	}
+
 
 	public HasClickHandlers getSubmitClickHandlers(){
 		return this.submitBtn;
@@ -68,7 +66,10 @@ public class TextWidget extends Composite implements Display{
 
 	public HasText getTitleText() {
 		// TODO Auto-generated method stub
-		return null;
+		return this.titleText;
+	}
+	public HasHTML getEnteredText() {
+		return this.textInputField;
 	}
 	
 

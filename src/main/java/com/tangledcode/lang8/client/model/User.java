@@ -1,5 +1,10 @@
 package com.tangledcode.lang8.client.model;
 
+
+import java.util.HashSet;
+import java.util.Set;
+
+
 import com.tangledcode.lang8.client.dto.UserDTO;
 
 public class User {
@@ -8,6 +13,7 @@ public class User {
     private String username;
     private String email;
     private String password;
+    private Set texts = new HashSet();
     
     public User() {
     }
@@ -64,5 +70,13 @@ public class User {
     public void setPassword(String password) {
         this.password = password;
     }
+
+	public void setTexts(Set texts) {
+		this.texts = texts;
+	}
+
+	public Set getTexts() {
+		return texts;
+	}
 
 }

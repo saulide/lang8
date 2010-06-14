@@ -13,7 +13,8 @@ import com.google.inject.Provider;
 import com.tangledcode.lang8.client.CurrentUser;
 import com.tangledcode.lang8.client.dto.AuthenticationResponse;
 import com.tangledcode.lang8.client.dto.GroupDTO;
-import com.tangledcode.lang8.client.dto.LanguagesDTO;
+import com.tangledcode.lang8.client.dto.LanguageDTO;
+import com.tangledcode.lang8.client.dto.TextDTO;
 import com.tangledcode.lang8.client.dto.UserDTO;
 import com.tangledcode.lang8.client.event.GroupClickEvent;
 import com.tangledcode.lang8.client.event.GroupClickHandler;
@@ -31,6 +32,8 @@ import com.tangledcode.lang8.client.event.TextClickEvent;
 import com.tangledcode.lang8.client.event.TextClickHandler;
 import com.tangledcode.lang8.client.event.TextSearchClickEvent;
 import com.tangledcode.lang8.client.event.TextSearchClickHandler;
+import com.tangledcode.lang8.client.event.TextSubmitEvent;
+import com.tangledcode.lang8.client.event.TextSubmitHandler;
 import com.tangledcode.lang8.client.event.UserLoggedInEvent;
 import com.tangledcode.lang8.client.event.UserLoggedInHandler;
 import com.tangledcode.lang8.client.event.UserLoggedOutEvent;
@@ -39,13 +42,17 @@ import com.tangledcode.lang8.client.event.UserLoginHandler;
 import com.tangledcode.lang8.client.event.UserRegistrationEvent;
 import com.tangledcode.lang8.client.event.UserRegistrationHandler;
 import com.tangledcode.lang8.client.model.Group;
+import com.tangledcode.lang8.client.model.Text;
 import com.tangledcode.lang8.client.model.User;
 import com.tangledcode.lang8.client.presenter.MainPresenter.Display;
 import com.tangledcode.lang8.client.presenter.RegistrationPresenter.Display.UserRegistrationDetails;
+import com.tangledcode.lang8.client.presenter.TextPresenter.Display.SubmitTextDetails;
 import com.tangledcode.lang8.client.service.GroupService;
 import com.tangledcode.lang8.client.service.GroupServiceAsync;
 import com.tangledcode.lang8.client.service.LanguageService;
 import com.tangledcode.lang8.client.service.LanguageServiceAsync;
+import com.tangledcode.lang8.client.service.TextService;
+import com.tangledcode.lang8.client.service.TextServiceAsync;
 import com.tangledcode.lang8.client.service.UserService;
 import com.tangledcode.lang8.client.service.UserServiceAsync;
 
@@ -63,6 +70,7 @@ public class MainPresenterImp extends BasePresenter<Display> implements MainPres
     private UserServiceAsync userSvc = GWT.create(UserService.class);
     private GroupServiceAsync groupSvc = GWT.create(GroupService.class);
     private LanguageServiceAsync langSvc = GWT.create(LanguageService.class);
+    private TextServiceAsync txtSvc = GWT.create(TextService.class);
 
     @Inject
     public MainPresenterImp(EventBus eventBus, Display display, MenuPresenter menuPresenter, 
@@ -204,9 +212,19 @@ public class MainPresenterImp extends BasePresenter<Display> implements MainPres
         
 
         ));
+        
+        this.registerHandler(this.eventBus.addHandler(TextSubmitEvent.getType(), new TextSubmitHandler() {
+			
+			public void onSubmitClick(TextSubmitEvent event) {
+				doSubmitText(event.getText());
+				
+			}
+		}));
 
         eventBus.fireEvent(new LoginClickEvent());
     }
+
+
 
 	protected void doTextSeachClick() {
         final TextSearchPresenter presenter = this.textSearchProvider.get();
@@ -220,7 +238,7 @@ public class MainPresenterImp extends BasePresenter<Display> implements MainPres
     protected void doTextClick() {
         final TextPresenter presenter = this.textProvider.get();
         
-        final AsyncCallback<List<LanguagesDTO>> callback = new AsyncCallback<List<LanguagesDTO>>(){
+        final AsyncCallback<List<LanguageDTO>> callback = new AsyncCallback<List<LanguageDTO>>(){
 
 			public void onFailure(Throwable arg0) {
 				System.out.println("Failure by getting language codes!!!");
@@ -228,9 +246,9 @@ public class MainPresenterImp extends BasePresenter<Display> implements MainPres
 				
 			}
 
-			public void onSuccess(List<LanguagesDTO> arg0) {
+			public void onSuccess(List<LanguageDTO> arg0) {
 				System.out.println("Languages wurden empfangen" + arg0.get(0).getTitle());
-				List<LanguagesDTO> ruckgbae = arg0;
+				List<LanguageDTO> ruckgbae = arg0;
 				presenter.setText(ruckgbae);
 				
 			}
@@ -354,5 +372,29 @@ public class MainPresenterImp extends BasePresenter<Display> implements MainPres
     protected void doResetRegistration() {
 
     }
+    
+	protected void doSubmitText(SubmitTextDetails submitTextDetails) {
+        if(this.userSvc == null) {
+            this.userSvc = GWT.create(UserService.class);
+        }
+
+        AsyncCallback<Long> callback = new AsyncCallback<Long>() {
+
+            public void onFailure(Throwable caught) {
+                System.err.println("could not set text");
+            }
+            
+            public void onSuccess(Long id) {
+            	//TODO: change state
+               // eventBus.fireEvent(new LoginClickEvent());
+            }
+
+
+        };
+        
+        Text sendText = new Text(submitTextDetails.getTitle(),submitTextDetails.getDescription(),submitTextDetails.getContent(),1,submitTextDetails.getLanguage());
+		
+        this.txtSvc.sendText(new TextDTO(sendText), callback);
+	}
 
 }
