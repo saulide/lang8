@@ -1,5 +1,8 @@
 package com.tangledcode.lang8.client.model;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
 import com.tangledcode.lang8.client.dto.UserDTO;
 
 public class User {

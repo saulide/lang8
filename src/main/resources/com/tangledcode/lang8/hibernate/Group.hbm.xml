@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.tangledcode.lang8.client.model">
+  <class name="Group" table="groups">
+  	<id name="id">
+  		<generator class="native" />
+  	</id>
+  	
+  	<!--<id name="user_id">
+  		<column name="id" />
+  		<generator class="foreign">
+  			<param name="property">user</param>
+  		</generator>
+  	</id> -->
+  	
+  	<property name="title" />
+  	<property name="describtion" />
+  	<property name="userId" />
+  
+  	<!--<one-to-one
+  		name="user"
+  		class="com.tangledcode.lang8.client.model.User"
+  	/>-->
+  
+  </class>
+  
+</hibernate-mapping>

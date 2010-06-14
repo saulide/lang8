@@ -3,6 +3,7 @@ package com.tangledcode.lang8.client.dto;
 import java.io.Serializable;
 import java.util.Date;
 
+import com.tangledcode.lang8.client.CurrentUser;
 import com.tangledcode.lang8.client.model.Group;
 import com.tangledcode.lang8.client.model.User;
 
@@ -14,6 +15,7 @@ public class GroupDTO implements Serializable {
     private int language_id;
     private String title;
     private String describtion;
+    private long userId;
     private Date created_at;
     private Date updated_at;
     private Date deleted_at;
@@ -26,6 +28,14 @@ public class GroupDTO implements Serializable {
         this.id = id;
         this.title = title;
         this.describtion = describtion;
+        this.userId = CurrentUser.getUser().getId();
+    }
+    
+    public GroupDTO(int id, String title, String describtion, long userId) {
+        this.id = id;
+        this.title = title;
+        this.describtion = describtion;
+        this.userId = userId;
     }
     
     public GroupDTO(int id, String title, String describtion, User user) {
@@ -36,7 +46,7 @@ public class GroupDTO implements Serializable {
     }
     
     public GroupDTO(Group group) {
-        this(group.getId(), group.getTitle(), group.getDescribtion(), group.getUser());
+        this(group.getId(), group.getTitle(), group.getDescribtion(), group.getUserId());
     }
     
     /*
@@ -58,6 +68,10 @@ public class GroupDTO implements Serializable {
     	return this.user;
     }
     
+    public long getUserId() {
+    	return this.userId;
+    }
+    
     /*
      * SETTER
      */
@@ -75,6 +89,10 @@ public class GroupDTO implements Serializable {
     
     public void setUser(UserDTO user) {
         this.user = user;
+    }
+    
+    public void setUserId(long userId) {
+    	this.userId = userId;
     }
     
 }
