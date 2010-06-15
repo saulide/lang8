@@ -2,6 +2,7 @@ package com.tangledcode.lang8.client.presenter;
 
 import java.util.List;
 
+import org.apache.tools.ant.taskdefs.rmic.KaffeRmic;
 import org.enunes.gwt.mvp.client.EventBus;
 import org.enunes.gwt.mvp.client.presenter.BasePresenter;
 import org.enunes.gwt.mvp.client.presenter.Presenter;
@@ -42,6 +43,7 @@ import com.tangledcode.lang8.client.event.UserLoginHandler;
 import com.tangledcode.lang8.client.event.UserRegistrationEvent;
 import com.tangledcode.lang8.client.event.UserRegistrationHandler;
 import com.tangledcode.lang8.client.model.Group;
+import com.tangledcode.lang8.client.model.Language;
 import com.tangledcode.lang8.client.model.Text;
 import com.tangledcode.lang8.client.model.User;
 import com.tangledcode.lang8.client.presenter.MainPresenter.Display;
@@ -71,6 +73,7 @@ public class MainPresenterImp extends BasePresenter<Display> implements MainPres
     private GroupServiceAsync groupSvc = GWT.create(GroupService.class);
     private LanguageServiceAsync langSvc = GWT.create(LanguageService.class);
     private TextServiceAsync txtSvc = GWT.create(TextService.class);
+	private Language langTemo;
 
     @Inject
     public MainPresenterImp(EventBus eventBus, Display display, MenuPresenter menuPresenter, 
@@ -374,7 +377,7 @@ public class MainPresenterImp extends BasePresenter<Display> implements MainPres
     }
     
 	protected void doSubmitText(SubmitTextDetails submitTextDetails) {
-        if(this.userSvc == null) {
+		if(this.userSvc == null) {
             this.userSvc = GWT.create(UserService.class);
         }
 
@@ -391,10 +394,37 @@ public class MainPresenterImp extends BasePresenter<Display> implements MainPres
 
 
         };
+        Language langIntern;
+        final AsyncCallback<LanguageDTO> callback2 = new AsyncCallback<LanguageDTO>(){
+
+			public void onFailure(Throwable arg0) {
+				System.out.println("Failure by getting language codes by saving the text");
+				System.err.println(arg0);
+				
+			}
+
+			public void onSuccess(LanguageDTO arg0) {
+				saveLang(new Language(arg0));
+				
+			}
+        	
+        };
+        if(this.langSvc == null){
+        	this.langSvc = GWT.create(LanguageService.class);
+        }
+       // System.out.println(submitTextDetails.getLanguage());
+        this.langSvc.getLanguageById(submitTextDetails.getLanguage(), callback2);
         
-        Text sendText = new Text(submitTextDetails.getTitle(),submitTextDetails.getDescription(),submitTextDetails.getContent(),1,submitTextDetails.getLanguage());
+        //TODO: GetLangage von
+        
+        Text sendText = new Text(submitTextDetails.getTitle(),submitTextDetails.getDescription(),submitTextDetails.getContent(),CurrentUser.getUser(),this.langTemo);
 		
         this.txtSvc.sendText(new TextDTO(sendText), callback);
+	}
+
+	protected void saveLang(Language language) {
+		this.langTemo = language;
+		
 	}
 
 }

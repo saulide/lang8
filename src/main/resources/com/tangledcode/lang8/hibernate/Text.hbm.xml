@@ -10,7 +10,7 @@
   	<property name="title" />
   	<property name="description" />
   	<property name="content" />
-  	<many-to-one name="user_id" class="User" column="user_id"></many-to-one>
+  	<many-to-one name="user" class="User" column="user_id"></many-to-one>
   	<many-to-one name="lang_id" class="Language" column="lang_id"></many-to-one>
   	<property name="created_at" />
   	<property name="updated_at" />
