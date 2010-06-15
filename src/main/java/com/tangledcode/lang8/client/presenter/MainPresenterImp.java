@@ -54,6 +54,8 @@ public class MainPresenterImp extends BasePresenter<Display> implements MainPres
     
     private UserServiceAsync userSvc = GWT.create(UserService.class);
     private GroupServiceAsync groupSvc = GWT.create(GroupService.class);
+    
+    private int baseId = 22;
 
     @Inject
     public MainPresenterImp(EventBus eventBus, Display display, MenuPresenter menuPresenter, 
@@ -212,6 +214,47 @@ public class MainPresenterImp extends BasePresenter<Display> implements MainPres
     protected void doGroupClick() {
         final GroupPresenter presenter = this.groupProvider.get();
         this.switchPresenter(presenter);
+        
+        if(this.groupSvc == null) {
+            this.groupSvc = GWT.create(GroupService.class);
+        }
+        
+        // Group #1
+        final AsyncCallback<GroupDTO> callback = new AsyncCallback<GroupDTO>() {
+
+            public void onFailure(Throwable caught) {
+            }
+
+            public void onSuccess(GroupDTO group) {
+                presenter.setGroup_1(new Group(group));
+            }
+        };
+        
+        // group #2
+        final AsyncCallback<GroupDTO> callback2 = new AsyncCallback<GroupDTO>() {
+
+            public void onFailure(Throwable caught) {
+            }
+
+            public void onSuccess(GroupDTO group) {
+                presenter.setGroup_2(new Group(group));
+            }
+        };
+        
+     // group #3
+        final AsyncCallback<GroupDTO> callback3 = new AsyncCallback<GroupDTO>() {
+
+            public void onFailure(Throwable caught) {
+            }
+
+            public void onSuccess(GroupDTO group) {
+                presenter.setGroup_3(new Group(group));
+            }
+        };
+        
+        this.groupSvc.getGroup(baseId, callback);
+        this.groupSvc.getGroup(baseId+1, callback2);
+        this.groupSvc.getGroup(baseId+2, callback3);
     }
 
     protected void doProfileClick(long id) {
@@ -253,6 +296,8 @@ public class MainPresenterImp extends BasePresenter<Display> implements MainPres
         };
         
         this.groupSvc.saveGroup(new GroupDTO(group), callback);
+        this.baseId ++;
+        doGroupClick();
     }
 
     protected void doUserLogin(User user) {

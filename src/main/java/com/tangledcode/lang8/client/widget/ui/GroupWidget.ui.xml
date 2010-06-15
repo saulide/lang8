@@ -7,7 +7,52 @@
 		<h3>Groups</h3>
 		
 		<p>
-			Coming soon: A list of groups and a link to details...
+			<p>
+				<g:Label text="Title:" />
+				<g:Label ui:field="groupTitle_1" /><br />
+			</p>
+			<p>
+				<g:Label text="Description:" />
+				<span ui:field="groupDescribtion_1" /><br />
+			</p>
+			<p>
+				<g:Label text="Founder:" />
+				<g:Label ui:field="groupUser_1" /><br />
+			</p>
+		</p>
+		
+		<hr />
+		
+		<p>
+			<p>
+				<g:Label text="Title:" />
+				<g:Label ui:field="groupTitle_2" /><br />
+			</p>
+			<p>
+				<g:Label text="Description:" />
+				<span ui:field="groupDescribtion_2" /><br />
+			</p>
+			<p>
+				<g:Label text="Founder:" />
+				<g:Label ui:field="groupUser_2" /><br />
+			</p>
+		</p>
+		
+		<hr />
+		
+		<p>
+			<p>
+				<g:Label text="Title:" />
+				<g:Label ui:field="groupTitle_3" /><br />
+			</p>
+			<p>
+				<g:Label text="Description:" />
+				<span ui:field="groupDescribtion_3" /><br />
+			</p>
+			<p>
+				<g:Label text="Founder:" />
+				<g:Label ui:field="groupUser_3" /><br />
+			</p>
 		</p>
 		
 		<hr />
@@ -20,7 +65,7 @@
 				<g:TextBox ui:field="newGroupTitle" />
 			</p>
 			<p>
-				<g:Label text="Describtion" />
+				<g:Label text="Description" />
 				<g:TextArea ui:field="newGroupDescribtion" />
 			</p>
 			<p>
