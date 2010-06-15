@@ -1,18 +1,15 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE hibernate-mapping PUBLIC
 	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping package="com.tangledcode.lang8.client.model">
-  <class name="User" table="users">
+  <class name="Language" table="languages">
   	<id name="id">
-  		<generator class="native" />
-  	</id>
-  	
-  	<property name="username" />
-  	<property name="password" />
-  	<property name="email" />
+  		<generator class="sequence" />
+  	</id>	
+  	<property name="title" />
   	<set name="texts" cascade="all" lazy="true">
-  		<key column="user_id"></key>
+  		<key column="lang_id"></key>
   		<one-to-many class="Text"/>
   	</set>
   </class>

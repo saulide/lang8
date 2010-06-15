@@ -8,9 +8,9 @@ import com.tangledcode.lang8.client.model.Comment;
 public class CommentDTO implements Serializable {
     private static final long serialVersionUID = 7075169739567878260L;
 	
-    private int id;
+    private long id;
     private long user_id;
-    private int group_id;
+    private long group_id;
     private String text;
     private Date created_at;
     private Date updated_at;
@@ -20,12 +20,12 @@ public class CommentDTO implements Serializable {
     public CommentDTO() {
     }
     
-    public CommentDTO(int id, String text) {
+    public CommentDTO(long id, String text) {
         this.id = id;
         this.text = text;
     }
     
-    public CommentDTO(int id, String text, long user_id) {
+    public CommentDTO(long id, String text, long user_id) {
         this.id = id;
         this.user_id = user_id;
         this.text = text;
@@ -38,7 +38,7 @@ public class CommentDTO implements Serializable {
     /*
      * GETTER
      */
-    public int getId() {
+    public long getId() {
         return this.id;
     }
     
@@ -53,7 +53,7 @@ public class CommentDTO implements Serializable {
     /*
      * SETTER
      */
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
     

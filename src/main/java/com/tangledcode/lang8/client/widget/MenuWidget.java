@@ -24,6 +24,7 @@ public class MenuWidget extends Composite implements Display {
     @UiField Button logoutButton;
     @UiField Button profileButton;
     @UiField Button textButton;
+    @UiField Button textSearchButton;
 
     public MenuWidget() {
         initWidget(uiBinder.createAndBindUi(this));
@@ -57,6 +58,10 @@ public class MenuWidget extends Composite implements Display {
 
     public HasClickHandlers getTextClickHandlers() {
         return this.textButton;
+    }
+    
+    public HasClickHandlers getTextSearchClickHandlers(){
+    	return this.textSearchButton;
     }
 
     public void loggedIn() {

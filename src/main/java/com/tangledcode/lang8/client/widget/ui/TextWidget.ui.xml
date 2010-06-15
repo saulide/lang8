@@ -6,11 +6,11 @@
 	<g:VerticalPanel>
 		<g:HorizontalPanel>
 				<g:Label>Title</g:Label>
-				<g:TextArea ui:field="titleText"></g:TextArea>
+				<g:TextBox ui:field="titleText"></g:TextBox>
 		</g:HorizontalPanel>
 				<g:HorizontalPanel>
 				<g:Label>Description</g:Label>
-				<g:TextArea ui:field="descriptionText"></g:TextArea>
+				<g:TextBox ui:field="descriptionText"></g:TextBox>
 		</g:HorizontalPanel>
 		<g:Label>Content: </g:Label>
 		<g:RichTextArea ui:field="textInputField"></g:RichTextArea>	

@@ -15,12 +15,15 @@ import com.tangledcode.lang8.client.presenter.RegistrationPresenter;
 import com.tangledcode.lang8.client.presenter.RegistrationPresenterImp;
 import com.tangledcode.lang8.client.presenter.TextPresenter;
 import com.tangledcode.lang8.client.presenter.TextPresenterImp;
+import com.tangledcode.lang8.client.presenter.TextSearchPresenter;
+import com.tangledcode.lang8.client.presenter.TextSearchPresenterImp;
 import com.tangledcode.lang8.client.widget.GroupWidget;
 import com.tangledcode.lang8.client.widget.LoginWidget;
 import com.tangledcode.lang8.client.widget.MainWidget;
 import com.tangledcode.lang8.client.widget.MenuWidget;
 import com.tangledcode.lang8.client.widget.ProfileWidget;
 import com.tangledcode.lang8.client.widget.RegistrationWidget;
+import com.tangledcode.lang8.client.widget.TextSearchWidget;
 import com.tangledcode.lang8.client.widget.TextWidget;
 
 public class Module extends AbstractGinModule {
@@ -33,6 +36,8 @@ public class Module extends AbstractGinModule {
          
         bind(TextPresenter.class).to(TextPresenterImp.class);
         bind(TextPresenter.Display.class).to(TextWidget.class);
+        bind(TextSearchPresenter.class).to(TextSearchPresenterImp.class);
+        bind(TextSearchPresenter.Display.class).to(TextSearchWidget.class);
         
         bind(MainPresenter.class).to(MainPresenterImp.class);
         bind(MainPresenter.Display.class).to(MainWidget.class);

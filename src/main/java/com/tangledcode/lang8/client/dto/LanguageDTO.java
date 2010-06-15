@@ -2,7 +2,7 @@ package com.tangledcode.lang8.client.dto;
 
 import java.io.Serializable;
 
-public class LanguagesDTO implements Serializable{
+public class LanguageDTO implements Serializable{
 	
 	/**
 	 * 
@@ -11,14 +11,16 @@ public class LanguagesDTO implements Serializable{
 	private String id;
 	private String title;
 	
-	public LanguagesDTO() {
+	public LanguageDTO() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public LanguagesDTO(String id2, String title2) {
-		this.id = id2;
+	public LanguageDTO(String string, String title2) {
+		this.id = string;
 		this.title = title2;
 	}
+	
+	
 
 	public String getId() {
 		return id;

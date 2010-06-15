@@ -10,9 +10,9 @@ import com.tangledcode.lang8.client.model.User;
 public class GroupDTO implements Serializable {
     private static final long serialVersionUID = 7075169739567878260L;
 	
-    private int id;
+    private long id;
     private UserDTO user;
-    private int language_id;
+    private long language_id;
     private String title;
     private String describtion;
     private long userId;
@@ -24,21 +24,21 @@ public class GroupDTO implements Serializable {
     public GroupDTO() {
     }
     
-    public GroupDTO(int id, String title, String describtion) {
+    public GroupDTO(long id, String title, String describtion) {
         this.id = id;
         this.title = title;
         this.describtion = describtion;
         this.userId = CurrentUser.getUser().getId();
     }
     
-    public GroupDTO(int id, String title, String describtion, long userId) {
+    public GroupDTO(long id, String title, String describtion, long userId) {
         this.id = id;
         this.title = title;
         this.describtion = describtion;
         this.userId = userId;
     }
     
-    public GroupDTO(int id, String title, String describtion, User user) {
+    public GroupDTO(long id, String title, String describtion, User user) {
         this.id = id;
         this.title = title;
         this.describtion = describtion;
@@ -52,7 +52,7 @@ public class GroupDTO implements Serializable {
     /*
      * GETTER
      */
-    public int getId() {
+    public long getId() {
         return this.id;
     }
     
@@ -75,7 +75,7 @@ public class GroupDTO implements Serializable {
     /*
      * SETTER
      */
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
     

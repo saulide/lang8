@@ -1,7 +1,7 @@
 package com.tangledcode.lang8.client.model;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import java.util.HashSet;
+import java.util.Set;
 
 import com.tangledcode.lang8.client.dto.UserDTO;
 
@@ -11,7 +11,8 @@ public class User {
     private String username;
     private String email;
     private String password;
-    
+    private Set<Text> texts = new HashSet<Text>();
+
     public User() {
     }
 
@@ -24,7 +25,7 @@ public class User {
         this.email = email;
         this.password = password;
     }
-    
+
     public User(UserDTO user) {
         this(user.getUsername(), user.getEmail(), user.getPassword());
         this.id = user.getId();
@@ -66,6 +67,14 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public void setTexts(Set<Text> texts) {
+        this.texts = texts;
+    }
+
+    public Set<Text> getTexts() {
+        return texts;
     }
 
 }

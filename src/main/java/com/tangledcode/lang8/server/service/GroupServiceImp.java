@@ -12,7 +12,7 @@ public class GroupServiceImp extends RemoteServiceServlet implements GroupServic
 
    private static final long serialVersionUID = -7047801164572985605L;
 
-    public GroupDTO getGroup(int id) {
+    public GroupDTO getGroup(long id) {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         session.beginTransaction();
         
@@ -25,7 +25,7 @@ public class GroupServiceImp extends RemoteServiceServlet implements GroupServic
         return groupDTOTranslate;
     }
 
-    public int saveGroup(GroupDTO groupDTO) {
+    public long saveGroup(GroupDTO groupDTO) {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         session.beginTransaction();
         

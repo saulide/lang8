@@ -1,19 +1,23 @@
 package com.tangledcode.lang8.client.model;
 
-import com.tangledcode.lang8.client.dto.LanguagesDTO;
+import java.util.HashSet;
+import java.util.Set;
 
-public class Languages {
+import com.tangledcode.lang8.client.dto.LanguageDTO;
+
+public class Language {
 
 	/**
 	 * 
 	 */
 	private String id;
 	private String title;
+	private Set texts = new HashSet();
 	
-	public Languages() {
+	public Language() {
 		// TODO Auto-generated constructor stub
 	}
-	public Languages(LanguagesDTO lanDTO){
+	public Language(LanguageDTO lanDTO){
 		id = lanDTO.getId();
 		title = lanDTO.getTitle();
 	}
@@ -31,6 +35,12 @@ public class Languages {
 
 	public void setTitle(String title) {
 		this.title = title;
+	}
+	public Set getTexts() {
+		return texts;
+	}
+	public void setTexts(Set texts) {
+		this.texts = texts;
 	}
 
 }

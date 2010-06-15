@@ -6,9 +6,9 @@ import com.tangledcode.lang8.client.dto.CommentDTO;
 
 public class Comment {
 
-	private int id;
+	private long id;
     private long user_id;
-    private int group_id;
+    private long group_id;
     private String text;
     private Date created_at;
     private Date updated_at;
@@ -35,7 +35,7 @@ public class Comment {
     /*
      * GETTER
      */
-    public int getId() {
+    public long getId() {
         return this.id;
     }
 
@@ -50,7 +50,7 @@ public class Comment {
     /*
      * SETTER
      */
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 

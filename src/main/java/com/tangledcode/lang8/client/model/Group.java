@@ -9,9 +9,9 @@ import com.tangledcode.lang8.server.util.HibernateUtil;
 
 public class Group {
 
-    private int id;
+    private long id;
     private User user;
-    private int language_id;
+    private long language_id;
     private String title;
     private String describtion;
     private long userId;
@@ -49,7 +49,7 @@ public class Group {
     /*
      * GETTER
      */
-    public int getId() {
+    public long getId() {
         return this.id;
     }
     
@@ -80,7 +80,7 @@ public class Group {
     /*
      * SETTER
      */
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
     

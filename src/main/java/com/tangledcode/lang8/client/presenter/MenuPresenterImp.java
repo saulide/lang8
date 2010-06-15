@@ -12,6 +12,7 @@ import com.tangledcode.lang8.client.event.LoginClickEvent;
 import com.tangledcode.lang8.client.event.LogoutClickEvent;
 import com.tangledcode.lang8.client.event.RegistrationClickEvent;
 import com.tangledcode.lang8.client.event.TextClickEvent;
+import com.tangledcode.lang8.client.event.TextSearchClickEvent;
 import com.tangledcode.lang8.client.event.UserLoggedInEvent;
 import com.tangledcode.lang8.client.event.UserLoggedInHandler;
 import com.tangledcode.lang8.client.event.UserLoggedOutEvent;
@@ -68,6 +69,13 @@ public class MenuPresenterImp extends BasePresenter<Display> implements MenuPres
 			
 			public void onClick(ClickEvent event) {
 				eventBus.fireEvent(new TextClickEvent());
+				
+			}
+		});
+        this.display.getTextSearchClickHandlers().addClickHandler(new ClickHandler() {
+			
+			public void onClick(ClickEvent event) {
+				eventBus.fireEvent(new TextSearchClickEvent());
 				
 			}
 		});

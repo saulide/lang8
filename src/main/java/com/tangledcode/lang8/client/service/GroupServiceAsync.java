@@ -5,8 +5,8 @@ import com.tangledcode.lang8.client.dto.GroupDTO;
 
 public interface GroupServiceAsync {
 
-    void saveGroup(GroupDTO group, AsyncCallback<Integer> callback);
+    void saveGroup(GroupDTO group, AsyncCallback<Long> callback);
 
-    void getGroup(int id, AsyncCallback<GroupDTO> callback);
+    void getGroup(long id, AsyncCallback<GroupDTO> callback);
 
 }

@@ -1,5 +1,7 @@
 package com.tangledcode.lang8.client.presenter;
 
+import java.util.List;
+
 import org.enunes.gwt.mvp.client.EventBus;
 import org.enunes.gwt.mvp.client.presenter.BasePresenter;
 import org.enunes.gwt.mvp.client.presenter.Presenter;
@@ -11,6 +13,8 @@ import com.google.inject.Provider;
 import com.tangledcode.lang8.client.CurrentUser;
 import com.tangledcode.lang8.client.dto.AuthenticationResponse;
 import com.tangledcode.lang8.client.dto.GroupDTO;
+import com.tangledcode.lang8.client.dto.LanguageDTO;
+import com.tangledcode.lang8.client.dto.TextDTO;
 import com.tangledcode.lang8.client.dto.UserDTO;
 import com.tangledcode.lang8.client.event.GroupClickEvent;
 import com.tangledcode.lang8.client.event.GroupClickHandler;
@@ -26,6 +30,10 @@ import com.tangledcode.lang8.client.event.ResetRegistrationEvent;
 import com.tangledcode.lang8.client.event.ResetRegistrationHandler;
 import com.tangledcode.lang8.client.event.TextClickEvent;
 import com.tangledcode.lang8.client.event.TextClickHandler;
+import com.tangledcode.lang8.client.event.TextSearchClickEvent;
+import com.tangledcode.lang8.client.event.TextSearchClickHandler;
+import com.tangledcode.lang8.client.event.TextSubmitEvent;
+import com.tangledcode.lang8.client.event.TextSubmitHandler;
 import com.tangledcode.lang8.client.event.UserLoggedInEvent;
 import com.tangledcode.lang8.client.event.UserLoggedInHandler;
 import com.tangledcode.lang8.client.event.UserLoggedOutEvent;
@@ -34,11 +42,17 @@ import com.tangledcode.lang8.client.event.UserLoginHandler;
 import com.tangledcode.lang8.client.event.UserRegistrationEvent;
 import com.tangledcode.lang8.client.event.UserRegistrationHandler;
 import com.tangledcode.lang8.client.model.Group;
+import com.tangledcode.lang8.client.model.Text;
 import com.tangledcode.lang8.client.model.User;
 import com.tangledcode.lang8.client.presenter.MainPresenter.Display;
 import com.tangledcode.lang8.client.presenter.RegistrationPresenter.Display.UserRegistrationDetails;
+import com.tangledcode.lang8.client.presenter.TextPresenter.Display.SubmitTextDetails;
 import com.tangledcode.lang8.client.service.GroupService;
 import com.tangledcode.lang8.client.service.GroupServiceAsync;
+import com.tangledcode.lang8.client.service.LanguageService;
+import com.tangledcode.lang8.client.service.LanguageServiceAsync;
+import com.tangledcode.lang8.client.service.TextService;
+import com.tangledcode.lang8.client.service.TextServiceAsync;
 import com.tangledcode.lang8.client.service.UserService;
 import com.tangledcode.lang8.client.service.UserServiceAsync;
 
@@ -49,12 +63,15 @@ public class MainPresenterImp extends BasePresenter<Display> implements MainPres
     private final Provider<ProfilePresenter> profileProvider;
     private final Provider<GroupPresenter> groupProvider;
     private final Provider<TextPresenter> textProvider;
+    private final Provider<TextSearchPresenter> textSearchProvider;
     
     private Presenter<? extends org.enunes.gwt.mvp.client.view.Display> presenter;
     
     private UserServiceAsync userSvc = GWT.create(UserService.class);
     private GroupServiceAsync groupSvc = GWT.create(GroupService.class);
-    
+    private LanguageServiceAsync langSvc = GWT.create(LanguageService.class);
+    private TextServiceAsync txtSvc = GWT.create(TextService.class);
+
     private int baseId = 22;
 
     @Inject
@@ -63,7 +80,8 @@ public class MainPresenterImp extends BasePresenter<Display> implements MainPres
             Provider<LoginPresenter> loginProvider,
             Provider<ProfilePresenter> profileProvider,
             Provider<GroupPresenter> groupProvider,
-            Provider<TextPresenter> textProvider) {
+            Provider<TextPresenter> textProvider,
+            Provider<TextSearchPresenter> textSearchProvider) {
         super(eventBus, display);
 
         this.registrationProvider = registrationProvider;
@@ -71,6 +89,7 @@ public class MainPresenterImp extends BasePresenter<Display> implements MainPres
         this.profileProvider = profileProvider;
         this.groupProvider = groupProvider;
         this.textProvider = textProvider;
+        this.textSearchProvider = textSearchProvider;
 
         menuPresenter.bind();
         this.display.addMenu(menuPresenter.getDisplay());
@@ -180,18 +199,68 @@ public class MainPresenterImp extends BasePresenter<Display> implements MainPres
                 doTextClick();
             }
         }
+        
 
         ));
+        this.registerHandler(this.eventBus.addHandler(TextSearchClickEvent.getType(), new TextSearchClickHandler() {
+
+			public void onTextSearchClick(TextSearchClickEvent handler) {
+				doTextSeachClick();
+				
+			}
+
+
+        }
+        
+
+        ));
+        
+        this.registerHandler(this.eventBus.addHandler(TextSubmitEvent.getType(), new TextSubmitHandler() {
+			
+			public void onSubmitClick(TextSubmitEvent event) {
+				doSubmitText(event.getText());
+				
+			}
+		}));
 
         eventBus.fireEvent(new LoginClickEvent());
     }
 
+
+
+	protected void doTextSeachClick() {
+        final TextSearchPresenter presenter = this.textSearchProvider.get();
+        this.switchPresenter(presenter);
+		
+	}
     protected void doUserLoggedIn() {
         eventBus.fireEvent(new ProfileClickEvent(CurrentUser.getUser().getId()));
     }
 
     protected void doTextClick() {
         final TextPresenter presenter = this.textProvider.get();
+        
+        final AsyncCallback<List<LanguageDTO>> callback = new AsyncCallback<List<LanguageDTO>>(){
+
+			public void onFailure(Throwable arg0) {
+				System.out.println("Failure by getting language codes!!!");
+				System.err.println(arg0);
+				
+			}
+
+			public void onSuccess(List<LanguageDTO> arg0) {
+				System.out.println("Languages wurden empfangen" + arg0.get(0).getTitle());
+				List<LanguageDTO> ruckgbae = arg0;
+				presenter.setText(ruckgbae);
+				
+			}
+        	
+        };
+        if(this.langSvc == null){
+        	this.langSvc = GWT.create(LanguageService.class);
+        }
+        
+        this.langSvc.getLanguages(callback);
         this.switchPresenter(presenter);
     }
     
@@ -283,9 +352,9 @@ public class MainPresenterImp extends BasePresenter<Display> implements MainPres
             this.groupSvc = GWT.create(GroupService.class);
         }
         
-        AsyncCallback<Integer> callback = new AsyncCallback<Integer>() {
+        AsyncCallback<Long> callback = new AsyncCallback<Long>() {
             
-            public void onSuccess(Integer id) {
+            public void onSuccess(Long id) {
                 System.out.println("New group is created!");
             }
             
@@ -348,5 +417,29 @@ public class MainPresenterImp extends BasePresenter<Display> implements MainPres
     protected void doResetRegistration() {
 
     }
+    
+	protected void doSubmitText(SubmitTextDetails submitTextDetails) {
+        if(this.userSvc == null) {
+            this.userSvc = GWT.create(UserService.class);
+        }
+
+        AsyncCallback<Long> callback = new AsyncCallback<Long>() {
+
+            public void onFailure(Throwable caught) {
+                System.err.println("could not set text");
+            }
+            
+            public void onSuccess(Long id) {
+            	//TODO: change state
+               // eventBus.fireEvent(new LoginClickEvent());
+            }
+
+
+        };
+        
+        Text sendText = new Text(submitTextDetails.getTitle(),submitTextDetails.getDescription(),submitTextDetails.getContent(),1,submitTextDetails.getLanguage());
+		
+        this.txtSvc.sendText(new TextDTO(sendText), callback);
+	}
 
 }
