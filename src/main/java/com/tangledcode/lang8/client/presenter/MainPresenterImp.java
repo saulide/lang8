@@ -9,6 +9,8 @@ import org.enunes.gwt.mvp.client.presenter.Presenter;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.rpc.AsyncCallback;
+import com.google.gwt.user.client.ui.HasText;
+import com.google.gwt.user.client.ui.ListBox;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 import com.tangledcode.lang8.client.CurrentUser;
@@ -33,6 +35,8 @@ import com.tangledcode.lang8.client.event.TextClickEvent;
 import com.tangledcode.lang8.client.event.TextClickHandler;
 import com.tangledcode.lang8.client.event.TextSearchClickEvent;
 import com.tangledcode.lang8.client.event.TextSearchClickHandler;
+import com.tangledcode.lang8.client.event.TextSearchEvent;
+import com.tangledcode.lang8.client.event.TextSearchHandler;
 import com.tangledcode.lang8.client.event.TextSubmitEvent;
 import com.tangledcode.lang8.client.event.TextSubmitHandler;
 import com.tangledcode.lang8.client.event.UserLoggedInEvent;
@@ -53,6 +57,8 @@ import com.tangledcode.lang8.client.service.GroupService;
 import com.tangledcode.lang8.client.service.GroupServiceAsync;
 import com.tangledcode.lang8.client.service.LanguageService;
 import com.tangledcode.lang8.client.service.LanguageServiceAsync;
+import com.tangledcode.lang8.client.service.TextSearchItemsService;
+import com.tangledcode.lang8.client.service.TextSearchItemsServiceAsync;
 import com.tangledcode.lang8.client.service.TextService;
 import com.tangledcode.lang8.client.service.TextServiceAsync;
 import com.tangledcode.lang8.client.service.UserService;
@@ -73,6 +79,7 @@ public class MainPresenterImp extends BasePresenter<Display> implements MainPres
     private GroupServiceAsync groupSvc = GWT.create(GroupService.class);
     private LanguageServiceAsync langSvc = GWT.create(LanguageService.class);
     private TextServiceAsync txtSvc = GWT.create(TextService.class);
+    private TextSearchItemsServiceAsync txtSearchSvc = GWT.create(TextSearchItemsService.class);
 	private Language langTemo;
 
     @Inject
@@ -223,11 +230,41 @@ public class MainPresenterImp extends BasePresenter<Display> implements MainPres
 				
 			}
 		}));
+        
+        this.registerHandler(this.eventBus.addHandler(TextSearchEvent.getType(), new TextSearchHandler() {
+			
+			public void onSubmitClick(TextSearchEvent event) {
+				doTextSearch(event.getText(), event.getValue());
+				
+			}
+		}));
 
         eventBus.fireEvent(new LoginClickEvent());
     }
 
 
+	protected void doTextSearch(String value, String text) {
+		final TextSearchPresenter presenter = this.textSearchProvider.get();
+		final AsyncCallback<List<String>> callback = new AsyncCallback<List<String>>() {
+
+			public void onFailure(Throwable arg0) {
+				System.err.println(arg0);
+				
+			}
+
+			public void onSuccess(List<String> arg0) {
+				presenter.setSearchItems(arg0);
+				
+			}
+		};
+		
+		if(this.txtSearchSvc == null){
+			this.txtSearchSvc = GWT.create(TextSearchItemsService.class);
+		}
+		this.txtSearchSvc.getSearchItems(value, text,callback);
+		this.switchPresenter(presenter);
+		
+	}
 
 	protected void doTextSeachClick() {
         final TextSearchPresenter presenter = this.textSearchProvider.get();
@@ -426,5 +463,6 @@ public class MainPresenterImp extends BasePresenter<Display> implements MainPres
 		this.langTemo = language;
 		
 	}
+	
 
 }

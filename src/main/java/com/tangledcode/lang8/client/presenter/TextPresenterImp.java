@@ -38,7 +38,8 @@ public class TextPresenterImp extends BasePresenter<Display> implements TextPres
 	protected void doTextSubmit() {
 		String title = this.display.getTitleText().getText();
 		String description = this.display.getDescriptionText().getText();
-		String language = this.display.getSelectedLanguage().getTitle();
+		// Hier kann dass problem liegen
+		String language = this.display.getSelectedLanguage().getValue(this.display.getSelectedLanguage().getSelectedIndex());
 		String content = this.display.getEnteredText().getText();
 		eventBus.fireEvent(new TextSubmitEvent(new SubmitTextDetailsImp(title, language, content, description)));
 		

@@ -27,7 +27,7 @@ public class TextSubmitEvent extends GwtEvent<TextSubmitHandler> {
 
 	@Override
 	public com.google.gwt.event.shared.GwtEvent.Type<TextSubmitHandler> getAssociatedType() {
-		return TYPE;
+		return getType();
 	}
 
 

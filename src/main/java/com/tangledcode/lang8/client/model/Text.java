@@ -16,6 +16,10 @@ public class Text {
 	private Date updated_at;
 	private Date deleted_at;
 	
+	public Text(){
+		
+	}
+	
 	public Text(TextDTO text) {
 		this.title = text.getTitle();
 		this.description = text.getDescription();

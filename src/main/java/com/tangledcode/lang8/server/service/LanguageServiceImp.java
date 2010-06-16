@@ -58,7 +58,7 @@ public class LanguageServiceImp extends RemoteServiceServlet implements Language
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         session.beginTransaction();
         Language lang = (Language) session.createCriteria(Language.class, "l")
-        	.add(Restrictions.eq("l.id", id))
+        	.add(Restrictions.eq("l.id", "USA"))
         	.uniqueResult();
         session.getTransaction().commit();
         LanguageDTO langDto = new LanguageDTO(lang.getId(), lang.getTitle());
