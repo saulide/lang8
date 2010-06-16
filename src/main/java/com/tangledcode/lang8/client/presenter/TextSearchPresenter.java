@@ -7,6 +7,8 @@ import org.enunes.gwt.mvp.client.presenter.Presenter;
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.user.client.ui.HasText;
 import com.google.gwt.user.client.ui.ListBox;
+import com.tangledcode.lang8.client.dto.TextDTO;
+import com.tangledcode.lang8.client.model.Text;
 
 public interface TextSearchPresenter extends Presenter<TextSearchPresenter.Display>{
 	
@@ -24,6 +26,6 @@ public interface TextSearchPresenter extends Presenter<TextSearchPresenter.Displ
 
 	void setResultTitle(String string);
 
-	void setResultLabel(String string);
+	void setResultLabel(List<Text> returnTexts);
 
 }

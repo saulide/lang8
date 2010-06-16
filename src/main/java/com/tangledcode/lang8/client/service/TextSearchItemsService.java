@@ -4,11 +4,12 @@ import java.util.List;
 
 import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
+import com.tangledcode.lang8.client.dto.TextDTO;
 
 @RemoteServiceRelativePath("textSearchService")
 public interface TextSearchItemsService extends RemoteService {
 	
 
-	List<String> getSearchItems(String value, String text);
+	List<TextDTO> getSearchItems(String value, String text);
 
 }

@@ -8,7 +8,9 @@ import org.enunes.gwt.mvp.client.presenter.BasePresenter;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.inject.Inject;
+import com.tangledcode.lang8.client.dto.TextDTO;
 import com.tangledcode.lang8.client.event.TextSearchEvent;
+import com.tangledcode.lang8.client.model.Text;
 import com.tangledcode.lang8.client.presenter.TextSearchPresenter.Display;
 
 public class TextSearchPresenterImp extends BasePresenter<Display> implements TextSearchPresenter {
@@ -51,6 +53,12 @@ public class TextSearchPresenterImp extends BasePresenter<Display> implements Te
 
 	public void setResultTitle(String string) {
 		this.display.setResultTitle(string);
+		
+	}
+
+	public void setResultLabel(List<Text> arg0) {
+		this.display.setResultLabel(arg0.get(0).getTitle());
+		this.display.setResultTitle(arg0.get(0).getDescription());
 		
 	}
 

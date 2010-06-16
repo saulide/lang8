@@ -19,7 +19,10 @@
   	<servlet-class>com.tangledcode.lang8.server.service.TextServiceImp</servlet-class>
   </servlet>
   
-  
+    <servlet>
+  	<servlet-name>TextSearchItemsImpl</servlet-name>
+  	<servlet-class>com.tangledcode.lang8.server.service.TextSearchItemsImpl</servlet-class>
+  </servlet>
   <servlet>
   	<servlet-name>groupServiceImp</servlet-name>
   	<servlet-class>com.tangledcode.lang8.server.service.GroupServiceImp</servlet-class>
@@ -29,6 +32,11 @@
   	<servlet-name>languageServiceImp</servlet-name>
   	<servlet-class>com.tangledcode.lang8.server.service.LanguageServiceImp</servlet-class>
   </servlet>
+  
+    <servlet-mapping>
+  	<servlet-name>TextSearchItemsImpl</servlet-name>
+  	<url-pattern>/lang8/textSearchService</url-pattern>
+  </servlet-mapping>
   
   <servlet-mapping>
   	<servlet-name>userServiceImp</servlet-name>

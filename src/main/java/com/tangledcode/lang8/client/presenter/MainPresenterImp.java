@@ -1,5 +1,6 @@
 package com.tangledcode.lang8.client.presenter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.tools.ant.taskdefs.rmic.KaffeRmic;
@@ -245,15 +246,20 @@ public class MainPresenterImp extends BasePresenter<Display> implements MainPres
 
 	protected void doTextSearch(String value, String text) {
 		final TextSearchPresenter presenter = this.textSearchProvider.get();
-		final AsyncCallback<List<String>> callback = new AsyncCallback<List<String>>() {
+		final AsyncCallback<List<TextDTO>> callback = new AsyncCallback<List<TextDTO>>() {
 
 			public void onFailure(Throwable arg0) {
 				System.err.println(arg0);
 				
 			}
 
-			public void onSuccess(List<String> arg0) {
-				presenter.setSearchItems(arg0);
+			public void onSuccess(List<TextDTO> arg0) {
+				//presenter.setSearchItems(arg0);
+				List<Text> returnTexts = new ArrayList();
+				for(int i = 0; i < arg0.size();i++){
+					returnTexts.add(new Text(arg0.get(i)));
+				}
+				presenter.setResultLabel(returnTexts);
 				
 			}
 		};

@@ -7,6 +7,7 @@ import org.hibernate.Session;
 import org.hibernate.criterion.Property;
 import org.hibernate.criterion.Restrictions;
 
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 import com.tangledcode.lang8.client.dto.LanguageDTO;
 import com.tangledcode.lang8.client.exception.UserAuthenticationException;
@@ -55,10 +56,11 @@ public class LanguageServiceImp extends RemoteServiceServlet implements Language
 	}
 
 	public LanguageDTO getLanguageById(String id) {
+
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         session.beginTransaction();
         Language lang = (Language) session.createCriteria(Language.class, "l")
-        	.add(Restrictions.eq("l.id", "USA"))
+        	.add(Restrictions.eq("l.title", id))
         	.uniqueResult();
         session.getTransaction().commit();
         LanguageDTO langDto = new LanguageDTO(lang.getId(), lang.getTitle());
