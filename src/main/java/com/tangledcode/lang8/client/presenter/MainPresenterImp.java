@@ -51,7 +51,7 @@ public class MainPresenterImp extends BasePresenter<Display> implements MainPres
     private UserServiceAsync userSvc = GWT.create(UserService.class);
     private GroupServiceAsync groupSvc = GWT.create(GroupService.class);
     
-    private int baseId = 22;
+    private int baseId;
 
     @Inject
     public MainPresenterImp(EventBus eventBus, Display display, MenuPresenter menuPresenter, 
@@ -202,30 +202,56 @@ public class MainPresenterImp extends BasePresenter<Display> implements MainPres
             this.groupSvc = GWT.create(GroupService.class);
         }
         
-        // Group #1
-        final AsyncCallback<GroupDTO> callback = new AsyncCallback<GroupDTO>() {
+        final AsyncCallback<Integer> callback4 = new AsyncCallback<Integer>() {
+
+            public void onFailure(Throwable caught) {
+            }
+
+            public void onSuccess(Integer result) {
+            	baseId = result;
+            	showGroup1(presenter);
+            }
+        };
+        
+        this.groupSvc.getMaxId(callback4);
+        
+    }
+    
+    protected void showGroup1(final GroupPresenter presenter) {
+    	
+    	final AsyncCallback<GroupDTO> callback = new AsyncCallback<GroupDTO>() {
 
             public void onFailure(Throwable caught) {
             }
 
             public void onSuccess(GroupDTO group) {
                 presenter.setGroup_1(new Group(group));
+                showGroup2(presenter);
             }
         };
         
-        // group #2
-        final AsyncCallback<GroupDTO> callback2 = new AsyncCallback<GroupDTO>() {
+        groupSvc.getGroup(baseId-2, callback);
+    }
+    
+    protected void showGroup2(final GroupPresenter presenter) {
+    	
+    	final AsyncCallback<GroupDTO> callback = new AsyncCallback<GroupDTO>() {
 
             public void onFailure(Throwable caught) {
             }
 
             public void onSuccess(GroupDTO group) {
                 presenter.setGroup_2(new Group(group));
+                showGroup3(presenter);
             }
         };
         
-     // group #3
-        final AsyncCallback<GroupDTO> callback3 = new AsyncCallback<GroupDTO>() {
+        groupSvc.getGroup(baseId-1, callback);
+    }
+    
+protected void showGroup3(final GroupPresenter presenter) {
+    	
+    	final AsyncCallback<GroupDTO> callback = new AsyncCallback<GroupDTO>() {
 
             public void onFailure(Throwable caught) {
             }
@@ -235,9 +261,7 @@ public class MainPresenterImp extends BasePresenter<Display> implements MainPres
             }
         };
         
-        this.groupSvc.getGroup(baseId, callback);
-        this.groupSvc.getGroup(baseId+1, callback2);
-        this.groupSvc.getGroup(baseId+2, callback3);
+        groupSvc.getGroup(baseId, callback);
     }
 
     protected void doProfileClick(long id) {

@@ -11,4 +11,5 @@ public interface GroupService extends RemoteService {
 
     int saveGroup(GroupDTO group);
 
+    int getMaxId();
 }

@@ -4,6 +4,7 @@
 	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping package="com.tangledcode.lang8.client.model">
   <class name="Group" table="groups">
+  	
   	<id name="id">
   		<generator class="native" />
   	</id>
