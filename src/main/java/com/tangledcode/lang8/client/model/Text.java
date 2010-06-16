@@ -10,24 +10,28 @@ public class Text {
 	private String title;
 	private String description;
 	private String content;
-	private long user_id;
-	private String lang_id;
+	private User user;
+	private Language lang_id;
 	private Date created_at;
 	private Date updated_at;
 	private Date deleted_at;
 	
+	public Text(){
+		
+	}
+	
 	public Text(TextDTO text) {
 		this.title = text.getTitle();
 		this.description = text.getDescription();
-		this.user_id = text.getUser_id();
-		this.lang_id = text.getLanguage_id();
+		this.user = new User(text.getUser_id());
+		this.lang_id = new Language(text.getLanguage_id());
 		this.content = text.getContent();
 	}
 	
-	public Text(String title, String desString, String content, long user_id, String string) {
+	public Text(String title, String desString, String content, User user_id, Language string) {
 		this.title = title;
 		this.description = desString;
-		this.user_id = user_id;
+		this.user = user_id;
 		this.setLang_id(string);	
 		this.setContent(content);
 	}
@@ -50,11 +54,11 @@ public class Text {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	public long getUser_id() {
-		return user_id;
+	public User getUser() {
+		return user;
 	}
-	public void setUser_id(int userId) {
-		user_id = userId;
+	public void setUser(User userId) {
+		user = userId;
 	}
 
 	public Date getCreated_at() {
@@ -84,11 +88,11 @@ public class Text {
 		return content;
 	}
 
-	public void setLang_id(String string) {
+	public void setLang_id(Language string) {
 		this.lang_id = string;
 	}
 
-	public String getLang_id() {
+	public Language getLang_id() {
 		return lang_id;
 	}
 

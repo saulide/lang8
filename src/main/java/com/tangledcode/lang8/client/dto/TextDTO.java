@@ -14,8 +14,8 @@ public class TextDTO implements Serializable{
 	private long id;
 	private String title;
 	private String description;
-	private long user_id;
-	private String language_id;
+	private UserDTO user;
+	private LanguageDTO language_id;
 	private Date created_at;
 	private Date updated_at;
 	private Date deleted_at;
@@ -25,10 +25,10 @@ public class TextDTO implements Serializable{
 		// TODO Auto-generated constructor stub
 	}
 	
-	public TextDTO(String title, String desString, int user_id, String language_id) {
+	public TextDTO(String title, String desString, UserDTO user_id, LanguageDTO language_id) {
 		this.title = title;
 		this.description = desString;
-		this.user_id = user_id;
+		this.user = user_id;
 		this.language_id = language_id;	
 	}
 	
@@ -37,8 +37,8 @@ public class TextDTO implements Serializable{
 		this.title = text.getTitle();
 		this.description = text.getDescription();
 		this.setContent(text.getContent());
-		this.user_id = text.getUser_id();
-		this.language_id = text.getLang_id();
+		this.user = new UserDTO(text.getUser());
+		this.language_id = new LanguageDTO(text.getLang_id());
 		// TODO Auto-generated constructor stub
 	}
 	
@@ -60,16 +60,16 @@ public class TextDTO implements Serializable{
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	public long getUser_id() {
-		return user_id;
+	public UserDTO getUser_id() {
+		return user;
 	}
-	public void setUser_id(int userId) {
-		user_id = userId;
+	public void setUser_id(UserDTO userId) {
+		user = userId;
 	}
-	public String getLanguage_id() {
+	public LanguageDTO getLanguage_id() {
 		return language_id;
 	}
-	public void setLanguage_id(String languageId) {
+	public void setLanguage_id(LanguageDTO languageId) {
 		language_id = languageId;
 	}
 	public Date getCreated_at() {

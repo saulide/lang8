@@ -48,7 +48,7 @@ public class UserDTO implements Serializable {
     /*
      * SETTER
      */
-    public void setId(Long id) {
+    public void setId(long id) {
         this.id = id;
     }
     

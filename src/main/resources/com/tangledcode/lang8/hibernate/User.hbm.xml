@@ -12,7 +12,7 @@
   	<property name="password" />
   	<property name="email" />
   	<set name="texts" cascade="all" lazy="true">
-  		<key column="user_id"></key>
+  		<key column="user"></key>
   		<one-to-many class="Text"/>
   	</set>
   </class>

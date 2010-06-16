@@ -1,13 +1,18 @@
 <!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
 <ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
 	xmlns:g="urn:import:com.google.gwt.user.client.ui">
-	<ui:style>
-		.important {
-			font-weight: bold;
-		}
-	</ui:style>
-	<g:HTMLPanel>
-		Hello,
-		<g:Button styleName="{style.important}" ui:field="button" />
+	<g:HTMLPanel styleName="content">
+	<g:VerticalPanel>
+		<g:HorizontalPanel>
+		<g:Label>Search</g:Label>
+			<g:TextBox ui:field="searchItem"></g:TextBox>
+			<g:ListBox ui:field="searchPrefs"></g:ListBox>
+			<g:Button ui:field="submitBtn" text="Search"></g:Button>
+		</g:HorizontalPanel>
+		<g:VerticalPanel>
+			<g:Label ui:field="resultLabel" text="Not searched"></g:Label>
+			<g:Label ui:field="resultTitle"></g:Label>
+		</g:VerticalPanel>
+	</g:VerticalPanel>
 	</g:HTMLPanel>
 </ui:UiBinder> 

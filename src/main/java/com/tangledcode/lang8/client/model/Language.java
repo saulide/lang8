@@ -21,6 +21,11 @@ public class Language {
 		id = lanDTO.getId();
 		title = lanDTO.getTitle();
 	}
+	public Language(String id2, Set texts2, String title2) {
+		this.id = id2;
+		this.texts = texts2;
+		this.title = title2;
+	}
 	public String getId() {
 		return id;
 	}

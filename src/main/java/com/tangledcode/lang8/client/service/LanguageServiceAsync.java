@@ -9,4 +9,6 @@ public interface LanguageServiceAsync {
 
 	void getLanguages(AsyncCallback<List<LanguageDTO>> callback);
 
+	void getLanguageById(String id, AsyncCallback<LanguageDTO> callback);
+
 }

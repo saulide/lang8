@@ -28,13 +28,17 @@ public class TextServiceImp extends RemoteServiceServlet implements TextService{
 	}
 
 	public long sendText(TextDTO text) {
+		
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        
         session.beginTransaction();
+        
         Text newtext = new Text(text);
+        
         session.save(newtext);
         session.getTransaction().commit();
 
-        return text.getId();
+        return 0;
 		// TODO Auto-generated method stub
 		
 	}

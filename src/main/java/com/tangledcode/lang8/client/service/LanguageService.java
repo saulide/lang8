@@ -11,5 +11,6 @@ import com.tangledcode.lang8.client.exception.UserAuthenticationException;
 public interface LanguageService extends RemoteService{
 	
 	List<LanguageDTO> getLanguages() throws UserAuthenticationException;
+	LanguageDTO getLanguageById(String id);
 
 }

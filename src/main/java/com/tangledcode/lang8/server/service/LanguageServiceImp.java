@@ -5,11 +5,13 @@ import java.util.List;
 
 import org.hibernate.Session;
 import org.hibernate.criterion.Property;
+import org.hibernate.criterion.Restrictions;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 import com.tangledcode.lang8.client.dto.LanguageDTO;
 import com.tangledcode.lang8.client.exception.UserAuthenticationException;
 import com.tangledcode.lang8.client.model.Language;
+import com.tangledcode.lang8.client.model.User;
 import com.tangledcode.lang8.client.service.LanguageService;
 import com.tangledcode.lang8.server.util.HibernateUtil;
 
@@ -50,5 +52,17 @@ public class LanguageServiceImp extends RemoteServiceServlet implements Language
         // TODO Auto-generated method stub
         return new LanguageDTO(lang.getId(), lang.getTitle());
     }
+
+	public LanguageDTO getLanguageById(String id) {
+		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        session.beginTransaction();
+        Language lang = (Language) session.createCriteria(Language.class, "l")
+        	.add(Restrictions.eq("l.id", "USA"))
+        	.uniqueResult();
+        session.getTransaction().commit();
+        LanguageDTO langDto = new LanguageDTO(lang.getId(), lang.getTitle());
+        return langDto;
+        
+	}
 
 }
