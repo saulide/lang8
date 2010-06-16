@@ -9,4 +9,6 @@ public interface GroupServiceAsync {
 
     void getGroup(long id, AsyncCallback<GroupDTO> callback);
 
+	void getMaxId(AsyncCallback<Integer> callback);
+
 }

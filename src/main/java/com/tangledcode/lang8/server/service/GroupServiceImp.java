@@ -36,5 +36,16 @@ public class GroupServiceImp extends RemoteServiceServlet implements GroupServic
 
         return group.getId();
     }
+    
+    public int getMaxId() {
+    	Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        session.beginTransaction();
+        
+        Integer result = (Integer) session.createQuery("SELECT max(id) FROM Group").uniqueResult();
+        
+        session.getTransaction().commit();
+
+        return result.intValue();
+    }
 
 }

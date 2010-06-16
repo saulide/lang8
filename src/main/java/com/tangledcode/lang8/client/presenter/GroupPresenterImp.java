@@ -38,7 +38,7 @@ public class GroupPresenterImp extends BasePresenter<Display> implements GroupPr
     public void setGroup_1(Group group) {
         this.display.setGroupTitle_1(group.getTitle());
         this.display.setGroupdescribtion_1(group.getDescribtion());
-        this.display.setGroupUser_1(group.getUserName());
+        this.display.setGroupUser_1(group.getUserIdToString());
     }
     
     public void setGroup_2(Group group) {

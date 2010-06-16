@@ -3,15 +3,12 @@ package com.tangledcode.lang8.client.presenter;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.tools.ant.taskdefs.rmic.KaffeRmic;
 import org.enunes.gwt.mvp.client.EventBus;
 import org.enunes.gwt.mvp.client.presenter.BasePresenter;
 import org.enunes.gwt.mvp.client.presenter.Presenter;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.rpc.AsyncCallback;
-import com.google.gwt.user.client.ui.HasText;
-import com.google.gwt.user.client.ui.ListBox;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 import com.tangledcode.lang8.client.CurrentUser;
@@ -83,7 +80,7 @@ public class MainPresenterImp extends BasePresenter<Display> implements MainPres
     private TextSearchItemsServiceAsync txtSearchSvc = GWT.create(TextSearchItemsService.class);
 	private Language langTemo;
 
-    private int baseId = 22;
+    private int baseId;
 
     @Inject
     public MainPresenterImp(EventBus eventBus, Display display, MenuPresenter menuPresenter, 
@@ -257,7 +254,7 @@ public class MainPresenterImp extends BasePresenter<Display> implements MainPres
 
 			public void onSuccess(List<TextDTO> arg0) {
 				//presenter.setSearchItems(arg0);
-				List<Text> returnTexts = new ArrayList();
+				List<Text> returnTexts = new ArrayList<Text>();
 				for(int i = 0; i < arg0.size();i++){
 					returnTexts.add(new Text(arg0.get(i)));
 				}
@@ -334,30 +331,56 @@ public class MainPresenterImp extends BasePresenter<Display> implements MainPres
             this.groupSvc = GWT.create(GroupService.class);
         }
         
-        // Group #1
-        final AsyncCallback<GroupDTO> callback = new AsyncCallback<GroupDTO>() {
+        final AsyncCallback<Integer> callback4 = new AsyncCallback<Integer>() {
+
+            public void onFailure(Throwable caught) {
+            }
+
+            public void onSuccess(Integer result) {
+            	baseId = result;
+            	showGroup1(presenter);
+            }
+        };
+        
+        this.groupSvc.getMaxId(callback4);
+        
+    }
+    
+    protected void showGroup1(final GroupPresenter presenter) {
+    	
+    	final AsyncCallback<GroupDTO> callback = new AsyncCallback<GroupDTO>() {
 
             public void onFailure(Throwable caught) {
             }
 
             public void onSuccess(GroupDTO group) {
                 presenter.setGroup_1(new Group(group));
+                showGroup2(presenter);
             }
         };
         
-        // group #2
-        final AsyncCallback<GroupDTO> callback2 = new AsyncCallback<GroupDTO>() {
+        groupSvc.getGroup(baseId-2, callback);
+    }
+    
+    protected void showGroup2(final GroupPresenter presenter) {
+    	
+    	final AsyncCallback<GroupDTO> callback = new AsyncCallback<GroupDTO>() {
 
             public void onFailure(Throwable caught) {
             }
 
             public void onSuccess(GroupDTO group) {
                 presenter.setGroup_2(new Group(group));
+                showGroup3(presenter);
             }
         };
         
-     // group #3
-        final AsyncCallback<GroupDTO> callback3 = new AsyncCallback<GroupDTO>() {
+        groupSvc.getGroup(baseId-1, callback);
+    }
+    
+    protected void showGroup3(final GroupPresenter presenter) {
+    	
+    	final AsyncCallback<GroupDTO> callback = new AsyncCallback<GroupDTO>() {
 
             public void onFailure(Throwable caught) {
             }
@@ -367,9 +390,7 @@ public class MainPresenterImp extends BasePresenter<Display> implements MainPres
             }
         };
         
-        this.groupSvc.getGroup(baseId, callback);
-        this.groupSvc.getGroup(baseId+1, callback2);
-        this.groupSvc.getGroup(baseId+2, callback3);
+        groupSvc.getGroup(baseId, callback);
     }
 
     protected void doProfileClick(long id) {
@@ -482,7 +503,7 @@ public class MainPresenterImp extends BasePresenter<Display> implements MainPres
 
 
         };
-        Language langIntern;
+        
         final AsyncCallback<LanguageDTO> callback2 = new AsyncCallback<LanguageDTO>(){
 
 			public void onFailure(Throwable arg0) {
@@ -492,8 +513,7 @@ public class MainPresenterImp extends BasePresenter<Display> implements MainPres
 			}
 
 			public void onSuccess(LanguageDTO arg0) {
-				saveLang(new Language(arg0));
-				
+				langTemo = new Language(arg0);
 			}
         	
         };
@@ -509,11 +529,5 @@ public class MainPresenterImp extends BasePresenter<Display> implements MainPres
 		
         this.txtSvc.sendText(new TextDTO(sendText), callback);
 	}
-
-	protected void saveLang(Language language) {
-		this.langTemo = language;
-		
-	}
-	
 
 }
