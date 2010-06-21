@@ -39,7 +39,7 @@ public class TextSearchItemsImpl extends RemoteServiceServlet implements TextSea
 	private TextDTO createTextDTO(Text texts) {
 		
 		
-		return new TextDTO(texts.getTitle(),texts.getDescription());
+		return new TextDTO(texts.getTitle(),texts.getDescription(),texts.getContent());
 	}
 
 }

@@ -27,6 +27,7 @@ public class TextSearchWidget extends Composite implements Display{
 	@UiField Button submitBtn;
 	@UiField Label resultLabel;
 	@UiField Label resultTitle;
+	@UiField Label resultContent;
 
 	public TextSearchWidget() {
 		initWidget(uiBinder.createAndBindUi(this));
@@ -57,6 +58,10 @@ public class TextSearchWidget extends Composite implements Display{
 		this.resultLabel.setText(label);
 		
 	}
+	public void setResultText(String content) {
+		this.resultContent.setText(content);
+		
+	}
 
 	public void setResultTitle(String resultTitle) {
 		this.resultTitle.setText(resultTitle);
@@ -69,5 +74,7 @@ public class TextSearchWidget extends Composite implements Display{
 		// TODO Auto-generated method stub
 		return this.searchPrefs;
 	}
+
+
 
 }

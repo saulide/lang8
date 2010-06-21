@@ -9,10 +9,13 @@
 			<g:ListBox ui:field="searchPrefs"></g:ListBox>
 			<g:Button ui:field="submitBtn" text="Search"></g:Button>
 		</g:HorizontalPanel>
+		<g:HorizontalPanel>
 		<g:VerticalPanel>
 			<g:Label ui:field="resultLabel" text="Not searched"></g:Label>
 			<g:Label ui:field="resultTitle"></g:Label>
 		</g:VerticalPanel>
+			<g:Label ui:field="resultContent"></g:Label>
+		</g:HorizontalPanel>
 	</g:VerticalPanel>
 	</g:HTMLPanel>
 </ui:UiBinder> 

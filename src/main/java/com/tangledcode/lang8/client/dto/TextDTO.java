@@ -42,9 +42,10 @@ public class TextDTO implements Serializable{
 		// TODO Auto-generated constructor stub
 	}
 	
-	public TextDTO(String title2, String description2) {
+	public TextDTO(String title2, String description2, String content) {
 		this.title = title2;
 		this.description = description2;
+		this.content = content;
 		//this.user = userDTO;
 	}
 

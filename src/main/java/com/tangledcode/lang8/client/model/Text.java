@@ -36,9 +36,10 @@ public class Text {
 		this.setContent(content);
 	}
 	
-	public Text(String title2, String description2) {
+	public Text(String title2, String description2, String content) {
 		this.title = title2;
 		this.description = description2;
+		this.content = content;
 	}
 
 	public long getId() {

@@ -256,7 +256,7 @@ public class MainPresenterImp extends BasePresenter<Display> implements MainPres
 				//presenter.setSearchItems(arg0);
 				List<Text> returnTexts = new ArrayList<Text>();
 				for(int i = 0; i < arg0.size();i++){
-					returnTexts.add(new Text(arg0.get(i).getTitle(),arg0.get(i).getDescription()));
+					returnTexts.add(new Text(arg0.get(i).getTitle(),arg0.get(i).getDescription(),arg0.get(i).getContent()));
 				}
 				presenter.setResultLabel(returnTexts);
 				
