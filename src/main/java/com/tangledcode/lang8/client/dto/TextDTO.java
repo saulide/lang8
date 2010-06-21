@@ -42,6 +42,12 @@ public class TextDTO implements Serializable{
 		// TODO Auto-generated constructor stub
 	}
 	
+	public TextDTO(String title2, String description2) {
+		this.title = title2;
+		this.description = description2;
+		//this.user = userDTO;
+	}
+
 	public long getId() {
 		return id;
 	}

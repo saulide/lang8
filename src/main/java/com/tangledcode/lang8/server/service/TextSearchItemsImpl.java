@@ -8,6 +8,7 @@ import org.hibernate.criterion.Restrictions;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 import com.tangledcode.lang8.client.dto.TextDTO;
+import com.tangledcode.lang8.client.dto.UserDTO;
 import com.tangledcode.lang8.client.model.Text;
 import com.tangledcode.lang8.client.service.TextSearchItemsService;
 import com.tangledcode.lang8.server.util.HibernateUtil;
@@ -38,7 +39,7 @@ public class TextSearchItemsImpl extends RemoteServiceServlet implements TextSea
 	private TextDTO createTextDTO(Text texts) {
 		
 		
-		return new TextDTO(texts);
+		return new TextDTO(texts.getTitle(),texts.getDescription());
 	}
 
 }

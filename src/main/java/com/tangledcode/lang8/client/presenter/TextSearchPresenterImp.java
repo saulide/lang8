@@ -57,6 +57,7 @@ public class TextSearchPresenterImp extends BasePresenter<Display> implements Te
 	}
 
 	public void setResultLabel(List<Text> arg0) {
+		//int i = arg0.size();
 		this.display.setResultLabel(arg0.get(0).getTitle());
 		this.display.setResultTitle(arg0.get(0).getDescription());
 		
