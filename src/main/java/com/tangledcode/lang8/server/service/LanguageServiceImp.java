@@ -63,6 +63,7 @@ public class LanguageServiceImp extends RemoteServiceServlet implements Language
         	.uniqueResult();
         session.getTransaction().commit();
         LanguageDTO langDto = new LanguageDTO(lang.getId(), lang.getTitle());
+        
         return langDto;
         
 	}

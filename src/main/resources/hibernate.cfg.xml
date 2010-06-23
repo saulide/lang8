@@ -20,5 +20,6 @@
 		<mapping resource="com/tangledcode/lang8/hibernate/Group.hbm.xml"/>
 		<mapping resource="com/tangledcode/lang8/hibernate/Language.hbm.xml"/>
 		<mapping resource="com/tangledcode/lang8/hibernate/Text.hbm.xml"/>
+		<mapping resource="com/tangledcode/lang8/hibernate/Comment.hbm.xml"/>
 	</session-factory>
 </hibernate-configuration>

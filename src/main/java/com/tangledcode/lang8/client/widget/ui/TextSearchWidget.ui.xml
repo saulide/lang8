@@ -16,6 +16,11 @@
 		</g:VerticalPanel>
 			<g:Label ui:field="resultContent"></g:Label>
 		</g:HorizontalPanel>
+		<g:HorizontalPanel ui:field="commentBox" visible="false">
+			<g:Label text="Comment:"></g:Label>
+			<g:TextBox ui:field="commentText"></g:TextBox>
+			<g:Button ui:field="submitCommentBtn" text="Submit"></g:Button>
+		</g:HorizontalPanel>
 	</g:VerticalPanel>
 	</g:HTMLPanel>
 </ui:UiBinder> 

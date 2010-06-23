@@ -33,6 +33,7 @@ public class TextSearchItemsImpl extends RemoteServiceServlet implements TextSea
 			}
 		}
 		
+		
 		return returnValues;
 	}
 

@@ -37,6 +37,7 @@ public class TextServiceImp extends RemoteServiceServlet implements TextService{
         
         session.save(newtext);
         session.getTransaction().commit();
+        
 
         return 0;
 		// TODO Auto-generated method stub

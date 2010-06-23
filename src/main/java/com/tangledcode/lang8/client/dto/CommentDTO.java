@@ -32,7 +32,7 @@ public class CommentDTO implements Serializable {
     }
     
     public CommentDTO(Comment comment) {
-        this(comment.getId(), comment.getText(), comment.getUserId());
+        this(comment.getId(), comment.getText(), comment.getUser_id());
     }
     
     /*

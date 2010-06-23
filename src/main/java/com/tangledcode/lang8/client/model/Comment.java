@@ -43,7 +43,7 @@ public class Comment {
         return this.text;
     }
 
-    public Long getUserId() {
+    public Long getUser_id() {
         return this.user_id;
     }
 
@@ -58,8 +58,40 @@ public class Comment {
         this.text = text;
     }
 
-    public void setUserID(long user_id) {
+    public void setUser_id(long user_id) {
         this.user_id = user_id;
     }
+
+	public long getGroup_id() {
+		return group_id;
+	}
+
+	public void setGroup_id(long groupId) {
+		group_id = groupId;
+	}
+
+	public Date getCreated_at() {
+		return created_at;
+	}
+
+	public void setCreated_at(Date createdAt) {
+		created_at = createdAt;
+	}
+
+	public Date getUpdated_at() {
+		return updated_at;
+	}
+
+	public void setUpdated_at(Date updatedAt) {
+		updated_at = updatedAt;
+	}
+
+	public Date getDeleted_at() {
+		return deleted_at;
+	}
+
+	public void setDeleted_at(Date deletedAt) {
+		deleted_at = deletedAt;
+	}
 
 }

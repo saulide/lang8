@@ -8,6 +8,7 @@ import com.google.gwt.uibinder.client.UiTemplate;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HasText;
+import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.TextBox;
@@ -28,6 +29,9 @@ public class TextSearchWidget extends Composite implements Display{
 	@UiField Label resultLabel;
 	@UiField Label resultTitle;
 	@UiField Label resultContent;
+	@UiField HorizontalPanel commentBox;
+	@UiField TextBox commentText;
+	@UiField Button submitCommentBtn;
 
 	public TextSearchWidget() {
 		initWidget(uiBinder.createAndBindUi(this));
@@ -73,6 +77,11 @@ public class TextSearchWidget extends Composite implements Display{
 	public ListBox getSelectedSearchValue() {
 		// TODO Auto-generated method stub
 		return this.searchPrefs;
+	}
+
+	public void showCommentEditor() {
+		this.commentBox.setVisible(true);
+		
 	}
 
 

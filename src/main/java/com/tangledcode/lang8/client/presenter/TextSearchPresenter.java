@@ -21,6 +21,7 @@ public interface TextSearchPresenter extends Presenter<TextSearchPresenter.Displ
     	void setResultLabel(String label);
     	void setResultTitle(String resultTitle);
 		void setResultText(String content);
+		void showCommentEditor();
     }
     
     void setSearchItems(List<String> items);
